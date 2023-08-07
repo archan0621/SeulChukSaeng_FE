@@ -1,0 +1,9 @@
+# php 확장자 제거
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# php 오류표시하기
+php_value error_reporting 22527
+php_flag display_errors on
