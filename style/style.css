@@ -1,0 +1,85 @@
+/* index(비로그인) */
+.login_wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login_main {
+    width: 100%;
+    margin-top: 20%;
+}
+.login_main input {
+    max-width: 460px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    background: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 0;
+    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif !important;
+}
+.login_main input::placeholder {
+    color: #fff;
+}
+.login_main input:focus {
+    outline: none;
+}
+.login_main form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+.login_submit {
+    width: 100%;
+    height: 48px;
+    max-width: 320px;
+    margin: 24px auto;
+    border: none;
+    background: #FF3B30;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.go_signup {
+    color: #fff7f7;
+    font-size: 12px;
+}
+/* index (로그인) */
+.list_wrap:not(:last-child) {
+    margin-bottom: 32px;
+}
+.index_main {
+    max-width: 460px;
+    padding: 24px 20px 0;
+    height: 100%;
+    margin: 0 auto;
+}
+.list_title_wrap {
+    padding: 12px;
+    background: #bde7ff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+.list_title {
+    font-size: 18px;
+}
+.list_main {
+    background: #c8fffb;
+    border-radius: 8px;
+}
+.list {
+    padding: 8px 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.list:not(:last-child) {
+    border-bottom: 1px solid #000;
+}
