@@ -1,15 +1,20 @@
 <?php
     include 'tpl/body_tpl.php';
     function html_body() {
+        global $_SESSION;
 ?>
 <div class="page_wrap">
-    <?php if (/* $_SESSION['member_id'] */1) { ?>
+    <?php if (isset($_SESSION['member_id'])) { ?>
         <div class="bg_white page">
             <div class="header_wrap">
                 <div class="header">
-                    <p class="font_en">SeulChukSaeng</p>
-                    <!-- <p><?=$_SESSION['member_id']?>님</p> -->
-                    <p>주민규님</p>
+                    <div>
+                        <p class="font_en">SeulChukSaeng</p>
+                    </div>
+                    <div class="user_info">
+                        <p><?=$_SESSION['member_id']?>님</p>
+                        <p><a href="view_control/signout">로그아웃</a></p>
+                    </div>
                 </div>
             </div>
             <div class="index_main">
@@ -49,8 +54,8 @@
             </div>
         </div>
     <?php } else { ?>
-        <div class="bg_purple page">
-            <div class="txt_white txt_center login_wrap">
+        <div class="bg_white page">
+            <div class="txt_center login_wrap">
                 <div class="login_header">
                     <h2 class="font_en">SeulChukSaeng</h2>
                     <p class="header_noti">환영합니다!!<br>슬기로운 축구생활 멤버 페이지 입니다</p>
