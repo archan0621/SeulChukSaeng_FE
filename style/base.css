@@ -36,9 +36,19 @@ a {
     display: flex;
     justify-content: space-between;
 }
+.user_info {
+    display: flex;
+}
+.user_info a {
+    margin-left: 8px;
+    color: #fff;
+}
 .header p {
     font-size: 16px;
     color: #fff;
+}
+.header_noti {
+    font-weight: 700;
 }
 .txt_center {
     text-align: center;
