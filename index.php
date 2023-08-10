@@ -57,6 +57,7 @@
         <div class="bg_white page">
             <div class="txt_center login_wrap">
                 <div class="login_header">
+                    <img src="img/logo.png" alt="슬축생 로고" class="logo_img">
                     <h2 class="font_en">SeulChukSaeng</h2>
                     <p class="header_noti">환영합니다!!<br>슬기로운 축구생활 멤버 페이지 입니다</p>
                 </div>

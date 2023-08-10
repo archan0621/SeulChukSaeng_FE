@@ -6,6 +6,7 @@
     <div class="page">
         <div class="txt_center signup_wrap">
             <div class="signup_header">
+                <img src="../img/logo.png" alt="슬축생 로고" class="logo_img">
                 <h2 class="font_en">SeulChukSaeng</h2>
                 <p class="header_noti txt_gray">어서오세요<br>새로운 부원은 언제나 환영이야!</p>
             </div>

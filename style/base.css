@@ -36,6 +36,10 @@ a {
     display: flex;
     justify-content: space-between;
 }
+.logo_img {
+    width: 13%;
+    height: auto;
+}
 .user_info {
     display: flex;
 }
