@@ -31,8 +31,8 @@
 <script>
     const autoHyphen = (target) => {
         target.value = target.value;
-        target.value.replace(/[^0-9]/g, '');
-        target.value.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+        target.value = target.value.replace(/[^0-9]/g, '');
+        target.value = target.value.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
     }
     const changeValue = (target) => {
         const member_gender = document.getElementById('member_gender');

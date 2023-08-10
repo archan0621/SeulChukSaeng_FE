@@ -3,7 +3,8 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
-    overflow: hidden;
+    overflow: auto;
+    background: #fff;
 }
 .font_en {
     font-family: 'Suez One', serif !important;
@@ -33,6 +34,7 @@ a {
 .header {
     max-width: 460px;
     margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
 }
