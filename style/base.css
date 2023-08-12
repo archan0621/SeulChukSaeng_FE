@@ -24,7 +24,7 @@ a {
 }
 .page_wrap, .page {
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 .header_wrap {
     border-bottom: 1px solid #000;
@@ -38,6 +38,9 @@ a {
     display: flex;
     justify-content: space-between;
 }
+.header a {
+    color: #fff;
+}
 .logo_img {
     width: 13%;
     height: auto;
@@ -47,7 +50,6 @@ a {
 }
 .user_info a {
     margin-left: 8px;
-    color: #fff;
 }
 .header p {
     font-size: 16px;
@@ -64,4 +66,53 @@ a {
 }
 .m_t_16 {
     margin-top: 16px;
+}
+.icon i {
+    font-size: 30px;
+}
+.lity-container {
+    width: 100%;
+    max-width: 460px !important;
+    height: 50%;
+}
+.lity-content {
+    height: 100%;
+}
+.popup_wrap {
+    width: 100%;
+    max-width: 460px;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+}
+.popup {
+    height: 100%;
+}
+.popup_header {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.popup_header_left {
+    display: flex;
+    align-items: center;
+}
+.popup_header_left p, .popup_header_left i {
+    font-size: 16px;
+}
+.popup_header_right {
+    width: auto;
+}
+.popup_header_right button,.popup_header_right button:hover {
+    position: relative;
+    font-size: 16px;
+    width: auto;
+    height: auto;
+    color: #000;
+}
+.popup_content {
+    height: calc(100% - 40px);
 }
