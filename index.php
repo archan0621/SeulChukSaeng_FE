@@ -2,6 +2,26 @@
     include 'tpl/body_tpl.php';
     function html_body() {
         global $_SESSION;
+        if (isset($_SESSION['token'])) {
+            require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+            $get_event_list = JwtApiCall("https://sellstory.kro.kr:30621/event/list", "POST", array(''), $_SESSION['token']);
+            class event_dto {
+                private $event_id;
+                private $event_title;
+
+                public function __construct($event_id, $event_title) {
+                    $this->event_id = $event_id;
+                    $this->event_title = $event_title;
+                }
+                public function get_event_id() {
+                    return $this->event_id;
+                }
+            
+                public function get_event_title() {
+                    return $this->event_title;
+                }
+            }
+        }
 ?>
 <div class="page_wrap">
     <?php if (isset($_SESSION['member_id'])) { ?>
@@ -9,28 +29,30 @@
             <div class="header_wrap">
                 <div class="header">
                     <div>
-                        <p class="font_en">SeulChukSaeng</p>
+                        <a href="/" class="font_en">SeulChukSaeng</a>
                     </div>
                     <div class="user_info">
-                        <p><?=$_SESSION['member_id']?>님</p>
+                        <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
                         <p><a href="view_control/signout">로그아웃</a></p>
                     </div>
                 </div>
             </div>
             <div class="index_main">
                 <div class="list_wrap match_list">
-                    <div class="list_title_wrap"><p class="list_title">매치 목록</p></div>
+                    <div href="/view/match" class="list_title_wrap"><p class="list_title">매치 목록</p></div>
                     <div class="list_main">
                         <div>
-                            <p class="list">매치 목록1매치 목록1매치 목록1매치 목록1매치 목록1매치 목록1매치 목록1매치 목록1매치 목록1매치 목록1</p>
-                            <p class="list">매치 목록2</p>
-                            <p class="list">매치 목록3</p>
-                            <p class="list">매치 목록4</p>
+                            <?php for ($i = $get_event_list['showcaseCount'] - 1; $i >= 0; $i--) { 
+                            $event_dto = new event_dto($get_event_list['eventShowcase'][$i]['eventId'], $get_event_list['eventShowcase'][$i]['eventTitle']);
+                            $event_dto_id = $event_dto->get_event_id();
+                            $event_dto_event = $event_dto->get_event_title();?>
+                            <a href="/view/match?event_id=<?=$event_dto_id?>" class="list"><?=$event_dto_event?></a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
                 <div class="list_wrap notice_list">
-                    <div class="list_title_wrap"><p class="list_title">공지사항</p></div>
+                    <a href="/view/notice" class="list_title_wrap"><p class="list_title">공지사항</p></a>
                     <div class="list_main">
                         <div>
                             <p class="list">공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1</p>
@@ -41,7 +63,7 @@
                     </div>
                 </div>
                 <div class="list_wrap budgets_list">
-                    <div class="list_title_wrap"><p class="list_title">회비 사용 내역</p></div>
+                    <a href="/view/budgets" class="list_title_wrap"><p class="list_title">회비 사용 내역</p></a>
                     <div class="list_main">
                         <div>
                             <p class="list">회비1회비1회비1회비1회비1회비1회비1회비1회비1회비1</p>
