@@ -16,7 +16,7 @@
                     <input type="password" name="member_pw" id="member_pw" class="m_b_16" placeholder="비밀번호를 입력해주세요">
                     <input type="text" name="member_name" id="member_name" class="m_b_16" placeholder="이름을 입력해주세요">
                     <input type="text" oninput="autoHyphen(this)" maxlength="13" name="member_mobile" id="member_mobile" class="m_b_16" placeholder="전화번호를 입력해주세요 (번호만 입력)">
-                    <select name="member_gender" id="member_gender" class="m_b_16" onchange="changeValue(this)">
+                    <select name="member_gender" id="member_gender" class="m_b_16" onchange="changeGender(this)">
                         <option value="none">성별을 선택해주세요</option>
                         <option value="MALE" class="select" id="select">남자</option>
                         <option value="FEMALE" class="select" id="select">여자</option>
@@ -34,7 +34,7 @@
         target.value = target.value.replace(/[^0-9]/g, '');
         target.value = target.value.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
     }
-    const changeValue = (target) => {
+    const changeGender = (target) => {
         const member_gender = document.getElementById('member_gender');
         if (target.value == 'MALE' || target.value == 'FEMALE') {
             member_gender.classList.add('select_on');
