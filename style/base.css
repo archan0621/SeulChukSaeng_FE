@@ -116,3 +116,8 @@ a {
 .popup_content {
     height: calc(100% - 40px);
 }
+@media (max-width: 389px) {
+    .header p {
+        font-size: 14px;
+    }
+}

@@ -32,6 +32,9 @@
                         <a href="/" class="font_en">SeulChukSaeng</a>
                     </div>
                     <div class="user_info">
+                        <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
+                        <p><a href="/admin_view/index">관리자 메뉴</a></p>
+                        <?php  } ?>
                         <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
                         <p><a href="view_control/signout">로그아웃</a></p>
                     </div>
@@ -39,7 +42,7 @@
             </div>
             <div class="index_main">
                 <div class="list_wrap match_list">
-                    <div href="/view/match" class="list_title_wrap"><p class="list_title">매치 목록</p></div>
+                    <div class="list_title_wrap"><p class="list_title">매치 목록</p></div>
                     <div class="list_main">
                         <div>
                             <?php for ($i = $get_event_list['showcaseCount'] - 1; $i >= 0; $i--) { 
