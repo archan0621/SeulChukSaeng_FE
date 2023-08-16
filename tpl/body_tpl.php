@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>슬축생</title>
     <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/admin.css">
     <link rel="stylesheet" href="/style/color.css">
     <link rel="stylesheet" href="/style/base.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
