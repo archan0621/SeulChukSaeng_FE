@@ -21,6 +21,7 @@
       if ($get_user_name['result'] == 'success') {
         $_SESSION['token'] = $responseData['token'];
         $_SESSION['member_id'] = $get_user_name['message'];
+        $_SESSION['userRole'] = $get_user_name['userRole'];
         header("Location: /");
       } elseif ($get_user_name['result'] == 'fail') {
         echo "<script>alert('".$get_user_name['message']."');history.back();</script>";
