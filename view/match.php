@@ -108,6 +108,9 @@
                     <a href="/" class="font_en">SeulChukSaeng</a>
                 </div>
                 <div class="user_info">
+                    <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
+                    <p><a href="/admin_view/index">관리자 메뉴</a></p>
+                    <?php  } ?>
                     <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
                     <p><a href="../view_control/signout">로그아웃</a></p>
                 </div>
@@ -188,7 +191,7 @@
                 <p>참여인원 목록</p>
             </div>
             <div class="popup_header_right">
-                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close="">닫기 <i class="fa-solid fa-x"></i></button>
+                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
             </div>
         </div>
         <div class="popup_content player_list">
