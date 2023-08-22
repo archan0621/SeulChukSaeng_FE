@@ -29,3 +29,89 @@
     padding: 10px;
     overflow-y: auto;
 }
+/* 부원 목록 */
+.member_list {
+    display: flex;
+    justify-content: space-between;
+}
+.member_list input {
+    border-radius: 8px;
+    padding: 6px;
+    border: none;
+    box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.23);
+}
+.member_list input:focus {
+    outline: none;
+}
+.member_list_table {
+    width: 100%;
+    font-size: 14px;
+}
+.member_list_table, th, td {
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+/* 경기 목록 */
+.match_list_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.match_list_title a {
+    border-radius: 8px;
+    background: rgba(0, 255, 133, 0.74);
+    padding: 6px;
+}
+.admin_match_list {
+    border-radius: 8px;
+    background: #BEFFBD;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.admin_match_list:not(:last-child) {
+    margin-bottom: 16px;
+}
+/* 경기 생성 */
+.match_create_wrap {
+    padding: 16px 20px;
+    border-radius: 8px;
+    background: #BEFFBD;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.match_create_wrap > form > div:not(:last-child) {
+    margin-bottom: 16px;
+}
+.match_create_wrap p {
+    margin-bottom: 4px;
+}
+.match_create_wrap input {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.39);
+    padding: 8px;
+    background: #fff;
+    font-family: 'Noto Sans KR', sans-serif !important;
+    text-align: start;
+}
+.admin_member_gender {
+    background: #fff;
+    font-weight: 400;
+    padding: 8px;
+}
+.match_create_btn_wrap {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+.match_create_btn {
+    width: calc(100% - 40px);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    background: #C8FFFB;
+    padding: 8px;
+}
+/* 회원관리 (참여인원 추가/삭제/목록/납부확인요청) */
+.player_list a {color: #000; font-size: 14px;}

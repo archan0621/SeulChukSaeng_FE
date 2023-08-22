@@ -198,6 +198,20 @@ select {
 .match_info_txt p {
     font-size: 10px;
 }
+/* 경기 상세 (어드민) */
+.admin_match_info {
+    margin: 0;
+}
+.admin_match_info > a {
+    width: 25%;
+    padding: 12px;
+    background: #DEBDFF;
+    border-radius: 8px;
+    color: #000;
+}
+.admin_match_info > a:not(:last-child) {
+    margin-right: 4px;
+}
 .member_check_wrap {
     width: 100%;
     display: flex;
