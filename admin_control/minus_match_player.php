@@ -5,7 +5,7 @@
     $memberId = $_GET['memberId'];
 
     if (isset($eventId) && isset($memberId)) {
-        if ($memberId ) {
+        if ($memberId) {
             $responseData = JwtApiCall("https://sellstory.kro.kr:30621/event/memberRemove", 
             "POST", 
             array(
