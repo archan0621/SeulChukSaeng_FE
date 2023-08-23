@@ -20,13 +20,19 @@
 
         // Check for errors
         if($response === false) {
-            throw new Exception(curl_error($ch));
+            echo "<script>alert('서버와 연결이 불안정합니다.');location.href='../view_control/signout';</script>";
         }
 
         // Close the curl handle
         curl_close($ch);
 
-        return $responseData;
+        if ($responseData['result'] == 'fail') {
+            echo "<script>alert('".$responseData['message']."');history.back();</script>";
+        } elseif ($responseData['result'] == 'success') {
+            return $responseData;
+        } else {
+            echo "<script>alert('서버와 연결이 불안정합니다.');location.href='../view_control/signout';</script>";
+        }
     }
 
 ?>
