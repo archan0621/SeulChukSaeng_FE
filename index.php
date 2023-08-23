@@ -45,7 +45,7 @@
                     <div class="list_title_wrap"><p class="list_title">매치 목록</p></div>
                     <div class="list_main">
                         <div>
-                            <?php for ($i = $get_event_list['showcaseCount'] - 1; $i >= 0; $i--) { 
+                            <?php for ($i = 0; $i < $get_event_list['showcaseCount']; $i++) { 
                             $event_dto = new event_dto($get_event_list['eventShowcase'][$i]['eventId'], $get_event_list['eventShowcase'][$i]['eventTitle']);
                             $event_dto_id = $event_dto->get_event_id();
                             $event_dto_event = $event_dto->get_event_title();?>

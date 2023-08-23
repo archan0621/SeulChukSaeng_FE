@@ -99,6 +99,9 @@
         } else {
             $event_dto_gender = '혼성 경기';
         }
+
+        $not_match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberNoList", "POST", array('eventId' => $event_id), $_SESSION['token']); //미참여인원
+        $match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
 ?>
 <div class="page_wrap">
     <div class="page">
@@ -148,21 +151,31 @@
                     </div>
                 </div>
             </div>
-            <div class="member_check_wrap">
-                <div class="member_check">
-                    <div class="attendance_check">
-                        <div class="icon"><i class="fa-solid fa-user-check"></i></div>
-                        <div class="attendance_check_txt"><a href="#">출석 확인</a></div>
+            <div class="match_info admin_match_info">
+                <a href="javascript:;" onclick="add_player()" class="add_player">
+                    <div class="icon"><i class="fa-solid fa-plus"></i></div>
+                    <div class="match_info_txt">
+                        <p>참여인원 추가</p>
                     </div>
-                    <div class="expenses_check">
-                        <div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                        <div class="expenses_check_txt"><a href="#">납부 확인</a></div>
+                </a>
+                <a href="javascript:;" onclick="minus_player()" class="minus_player">
+                    <div class="icon"><i class="fa-solid fa-circle-minus"></i></div>
+                    <div class="match_info_txt">
+                        <p>참여인원 삭제</p>
                     </div>
-                    <div class="player_check">
-                        <div class="icon"><i class="fa-solid fa-user"></i></div>
-                        <div class="player_check_txt"><a href="javascript:;" onclick="player_check_lity();">참여인원</a></div>
+                </a>
+                <a href="javascript:;" onclick="list_player()" class="list_player">
+                    <div class="icon"><i class="fa-solid fa-list-ul"></i></div>
+                    <div class="match_info_txt">
+                        <p>참여인원 목록</p>
                     </div>
-                </div>
+                </a>
+                <a href="javascript:;" onclick="expenses_player()" class="expenses_player">
+                    <div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                    <div class="match_info_txt">
+                        <p>납부 확인 요청</p>
+                    </div>
+                </a>
             </div>
             <div class="match_notice_wrap">
                 <div class="match_notice">
@@ -183,7 +196,43 @@
         </div>
     </div>
 </div>
-<div id="player_check_lity" class="lity-hide popup_wrap">
+<div id="add_player_lity" class="lity-hide popup_wrap">
+    <div class="popup">
+        <div class="popup_header">
+            <div class="popup_header_left">
+                <i class="fa-solid fa-user-plus"></i>
+                <p>참여인원 추가</p>
+            </div>
+            <div class="popup_header_right">
+                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
+            </div>
+        </div>
+        <div class="popup_content player_list">
+            <?php foreach ($not_match_player['memberList'] as $item) { ?>
+            <a href="../admin_control/add_match_player?memberId=<?=$item['memberId']?>&event_id=<?=$event_id?>"><?=$item['memberName']?></a><br>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<div id="minus_player_lity" class="lity-hide popup_wrap">
+    <div class="popup">
+        <div class="popup_header">
+            <div class="popup_header_left">
+                <i class="fa-solid fa-user-minus"></i>
+                <p>참여인원 삭제</p>
+            </div>
+            <div class="popup_header_right">
+                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
+            </div>
+        </div>
+        <div class="popup_content player_list">
+            <?php foreach ($match_player['memberList'] as $item) { ?>
+                <a href="../admin_control/minus_match_player?memberId=<?=$item['memberId']?>&event_id=<?=$event_id?>"><?=$item['memberName']?></a><br>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<div id="list_player_lity" class="lity-hide popup_wrap">
     <div class="popup">
         <div class="popup_header">
             <div class="popup_header_left">
@@ -195,13 +244,40 @@
             </div>
         </div>
         <div class="popup_content player_list">
-            박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하
+            <?php foreach ($match_player['memberList'] as $item) { ?>
+            <p><?=$item['memberName']?></p>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<div id="expenses_player_lity" class="lity-hide popup_wrap">
+    <div class="popup">
+        <div class="popup_header">
+            <div class="popup_header_left">
+                <i class="fa-solid fa-user"></i>
+                <p>납부 확인 요청</p>
+            </div>
+            <div class="popup_header_right">
+                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
+            </div>
+        </div>
+        <div class="popup_content player_list">
+            ???
         </div>
     </div>
 </div>
 <script>
-    function player_check_lity() {
-        lity('#player_check_lity');
+    function add_player() {
+        lity('#add_player_lity');
+    }
+    function minus_player() {
+        lity('#minus_player_lity');
+    }
+    function list_player() {
+        lity('#list_player_lity');
+    }
+    function expenses_player() {
+        lity('#expenses_player_lity');
     }
 </script>
 <?php
