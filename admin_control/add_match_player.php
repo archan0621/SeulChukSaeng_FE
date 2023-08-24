@@ -5,7 +5,7 @@
     $memberId = $_GET['memberId'];
 
     if (isset($eventId) && isset($memberId)) {
-        if ($memberId ) {
+        if ($memberId) {
             $responseData = JwtApiCall("https://sellstory.kro.kr:30621/event/memberAdd", 
             "POST", 
             array(
@@ -19,7 +19,7 @@
             echo "<script>alert('".$responseData['message']."');</script>";
             header("Location: ../admin_view/match");
         } elseif ($responseData['result'] == 'success') {
-            echo "<script>alert('".$responseData['message']."');history.back();;</script>";
+            echo "<script>alert('".$responseData['message']."');history.back();</script>";
         }
     }
 

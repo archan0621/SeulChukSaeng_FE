@@ -20,18 +20,21 @@ function JwtApiCall($url, $httpMethod, $param, $access_token) {
 
     // Check for errors
     if($response === false) {
-        throw new Exception(curl_error($ch));
+        echo "<script>alert('서버와 연결이 불안정합니다.');location.href='../view_control/signout';</script>";
     }
 
     // Close the curl handle
     curl_close($ch);
 
-    if ($responseData['result'] == 'fail') {
-        echo "<script>alert('".$responseData['message']."');location.href='../view_control/signout'</script>";
+    if ($responseData['result'] == 'fail' && $responseData['message'] == '만료된 토큰으로 JWT 요청시도') {
+        echo "<script>alert('세션이 만료되었습니다. 다시 로그인해주세요.');location.href='../view_control/signout';</script>";
+    } elseif ($responseData['result'] == 'fail') {
+        echo "<script>alert('".$responseData['message']."');history.back();</script>";
+        return $responseData;
     } elseif ($responseData['result'] == 'success') {
         return $responseData;
     } else {
-        echo "<script>alert('서버와 연결이 불안정합니다.');location.href='../view_control/signout'</script>";
+        echo "<script>alert('서버와 연결이 불안정합니다.');location.href='../view_control/signout';</script>";
     }
 
 }

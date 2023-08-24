@@ -99,6 +99,8 @@
         } else {
             $event_dto_gender = '혼성 경기';
         }
+
+        $match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
 ?>
 <div class="page_wrap">
     <div class="page">
@@ -150,18 +152,18 @@
             </div>
             <div class="member_check_wrap">
                 <div class="member_check">
-                    <div class="attendance_check">
+                    <a href="../view_control/attendance_check?eventId=<?=$event_dto_id?>&memberId=<?=$_SESSION['member_id']?>" class="attendance_check">
                         <div class="icon"><i class="fa-solid fa-user-check"></i></div>
-                        <div class="attendance_check_txt"><a href="#">출석 확인</a></div>
-                    </div>
-                    <div class="expenses_check">
+                        <div class="attendance_check_txt"><p>출석 확인</p></div>
+                    </a>
+                    <a href="#" class="expenses_check">
                         <div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                        <div class="expenses_check_txt"><a href="#">납부 확인</a></div>
-                    </div>
-                    <div class="player_check">
+                        <div class="expenses_check_txt"><p>납부 확인</p></div>
+                    </a>
+                    <a href="javascript:;" onclick="player_check_lity();" class="player_check">
                         <div class="icon"><i class="fa-solid fa-user"></i></div>
-                        <div class="player_check_txt"><a href="javascript:;" onclick="player_check_lity();">참여인원</a></div>
-                    </div>
+                        <div class="player_check_txt"><p>참여인원</p></div>
+                    </a>
                 </div>
             </div>
             <div class="match_notice_wrap">
@@ -177,8 +179,7 @@
                 </div>
             </div>
             <div class="match_map_wrap">
-                <div class="match_map">
-                </div>
+                <div class="match_map"></div>
             </div>
         </div>
     </div>
@@ -195,7 +196,9 @@
             </div>
         </div>
         <div class="popup_content player_list">
-            박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하,박종하
+            <?php foreach ($match_player['memberList'] as $item) { ?>
+            <p><?=$item['memberName']?></p>
+            <?php } ?>
         </div>
     </div>
 </div>
