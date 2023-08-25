@@ -120,7 +120,10 @@
             </div>
         </div>
         <div class="txt_center match_wrap">
-            <div class="match_title"><?=$event_dto->get_event_title()?></div>
+            <div class="admin_match_title">
+                <div id="eventTitle" contenteditable="true"><?=$event_dto_title?></div>
+                <div class="admin_match_modify"><a href="javascript:;" onclick="change()">경기 수정</a><a href="javascript:;">경기 삭제</a></div>
+            </div>
             <div class="match_info">
                 <div class="match_gender">
                     <div class="icon"><i class="fa-solid fa-person"></i></div>
@@ -278,6 +281,19 @@
     }
     function expenses_player() {
         lity('#expenses_player_lity');
+    }
+    function change() {
+        const eventTitle = document.getElementById("eventTitle");
+        const newTitle = eventTitle.textContent;
+        $.ajax({
+            url: "../admin_control/match_update.php",
+            type: "POST",
+            data: { cmd: 'apply', newTitle: newTitle, eventId: <?=$event_dto_id?> },
+            success: function(response) {
+                alert(response);
+                location.reload();
+            }
+        });
     }
 </script>
 <?php
