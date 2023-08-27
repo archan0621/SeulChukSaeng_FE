@@ -33,7 +33,7 @@
         <div class="txt_center match_wrap">
             <div class="admin_match_title">
                 <div><?=$event_info['event_dto_title']?></div>
-                <div class="admin_match_modify"><a href="javascript:;" onclick="match_change()">경기 수정</a><a href="javascript:;">경기 삭제</a></div>
+                <div class="admin_match_modify"><a href="javascript:;" onclick="match_change()">경기 수정</a><a href="../admin_control/match_delete?eventId=<?=$event_id?>">경기 삭제</a></div>
             </div>
             <div class="match_info">
                 <div class="match_gender">
