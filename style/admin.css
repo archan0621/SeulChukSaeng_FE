@@ -115,3 +115,38 @@
 }
 /* 경기상세정보 */
 .player_list a {color: #000; font-size: 14px;}
+.change_content input {padding: 6px;}
+/* 경기 수정 */
+.match_change_lity_wrap {
+    height: 70% !important;
+}
+.match_change {
+    border: none;
+}
+.match_change > form > div {
+    margin-bottom: 8px;
+}
+.match_change > form > div > p {
+    margin-bottom: 4px;
+}
+.match_change input {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.39);
+    padding: 8px;
+    background: #fff;
+    font-family: 'Noto Sans KR', sans-serif !important;
+    text-align: start;
+}
+.match_change select {
+    color: #000;
+}
+.match_change_btn {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    background: #C8FFFB;
+    padding: 8px;
+    margin-top: 8px;
+}
