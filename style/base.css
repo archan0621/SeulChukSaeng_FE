@@ -94,6 +94,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 5%;
 }
 .popup_header_left {
     display: flex;
@@ -113,7 +114,7 @@ a {
     color: #000;
 }
 .popup_content {
-    height: 90%;
+    height: calc(95% - 8px);
 }
 @media (max-width: 389px) {
     .header p {
