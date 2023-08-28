@@ -29,7 +29,8 @@
         $responseData = JwtApiCall("https://sellstory.kro.kr:30621/event/create", 
             "POST", 
             array(
-                "title" => $title,"location" => $location, 
+                "title" => $title,
+                "location" => $location, 
                 "gender" => $gender, 
                 "money" => $money,
                 "startTime" => $start_time,

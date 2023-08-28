@@ -199,6 +199,24 @@ select {
     font-size: 10px;
 }
 /* 경기 상세 (어드민) */
+.admin_match_title {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    color: #000;
+    outline: none;
+    border: none;
+    background: #BDE7FF;
+    border-radius: 8px;
+    padding: 12px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+.admin_match_title a  {
+    margin: 0 4px;
+    font-size: 14px;
+}
 .admin_match_info {
     margin: 0;
 }

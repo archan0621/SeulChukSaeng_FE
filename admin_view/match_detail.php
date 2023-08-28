@@ -7,98 +7,9 @@
         }
         $event_id = $_GET['event_id'];
         require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
-        $get_event = JwtApiCall("https://sellstory.kro.kr:30621/event/read", "POST", array('eventId' => $event_id), $_SESSION['token']);
-        class event_dto {
-            private $eventId;
-            private $title;
-            private $gender;
-            private $money;
-            private $description;
-            private $startTime;
-            private $endTime;
-            private $location;
-
-            public function __construct($eventId, $title, $gender, $money, $description, $startTime, $endTime, $location) {
-                $this->eventId = $eventId;
-                $this->title = $title;
-                $this->gender = $gender;
-                $this->money = $money;
-                $this->description = $description;
-                $this->startTime = $startTime;
-                $this->endTime = $endTime;
-                $this->location = $location;
-            }
-            public function get_event_id() {
-                return $this->eventId;
-            }
         
-            public function get_event_title() {
-                return $this->title;
-            }
-
-            public function get_event_gender() {
-                return $this->gender;
-            }
-
-            public function get_event_money() {
-                return $this->money;
-            }
-
-            public function get_event_description() {
-                return $this->description;
-            }
-
-            public function get_event_startTime() {
-                $this->startTime = strtotime($this->startTime);
-                $hour = date("H", $this->startTime);
-                $minute = date("i", $this->startTime);
-
-                if ($hour <= 12) {
-                    $this->startTime = '오전 ' . $hour . ':' . $minute;
-                } else {
-                    $hour -= 12;
-                    $this->startTime = '오후 ' . $hour . ':' . $minute;
-                }
-
-                return $this->startTime;
-            }
-
-            public function get_event_endTime() {
-                $this->endTime = strtotime($this->endTime);
-                $hour = date("H", $this->endTime);
-                $minute = date("i", $this->endTime);
-
-                if ($hour <= 12) {
-                    $this->endTime = '오전 ' . $hour . ':' . $minute;
-                } else {
-                    $hour -= 12;
-                    $this->endTime = '오후 ' . $hour . ':' . $minute;
-                }
-
-                return $this->endTime;
-            }
-
-            public function get_event_location() {
-                return $this->location;
-            }
-
-        }
-        $event_dto = new event_dto($get_event['readResult']['eventId'], $get_event['readResult']['title'], $get_event['readResult']['gender'], $get_event['readResult']['money'], $get_event['readResult']['description'], $get_event['readResult']['startTime'], $get_event['readResult']['endTime'], $get_event['readResult']['location']);
-        $event_dto_id = $event_dto->get_event_id();
-        $event_dto_title = $event_dto->get_event_title();
-        $event_dto_gender = $event_dto->get_event_gender();
-        $event_dto_money = $event_dto->get_event_money();
-        $event_dto_description = $event_dto->get_event_description();
-        $event_dto_startTime = $event_dto->get_event_startTime();
-        $event_dto_endTime = $event_dto->get_event_endTime();
-        $event_dto_location = $event_dto->get_event_location();
-        if ($event_dto_gender == 'MALE') {
-            $event_dto_gender = '남자 경기';
-        } elseif ($event_dto_gender == 'FEMALE') {
-            $event_dto_gender = '여자 경기';
-        } else {
-            $event_dto_gender = '혼성 경기';
-        }
+        include '../admin_data/match_data.php';
+        $event_info = match_data($event_id);
 
         $not_match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberNoList", "POST", array('eventId' => $event_id), $_SESSION['token']); //미참여인원
         $match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
@@ -121,36 +32,36 @@
         </div>
         <div class="txt_center match_wrap">
             <div class="admin_match_title">
-                <div id="eventTitle" contenteditable="true"><?=$event_dto_title?></div>
-                <div class="admin_match_modify"><a href="javascript:;" onclick="change()">경기 수정</a><a href="javascript:;">경기 삭제</a></div>
+                <div><?=$event_info['event_dto_title']?></div>
+                <div class="admin_match_modify"><a href="javascript:;" onclick="match_change()">경기 수정</a><a href="../admin_control/match_delete?eventId=<?=$event_id?>">경기 삭제</a></div>
             </div>
             <div class="match_info">
                 <div class="match_gender">
                     <div class="icon"><i class="fa-solid fa-person"></i></div>
                     <div class="match_info_txt">
                         <p>경기종류</p>
-                        <p><?=$event_dto_gender?></p>
+                        <p><?=$event_info['event_dto_gender']?></p>
                     </div>
                 </div>
                 <div class="match_expenses">
                     <div class="icon"><i class="fa-solid fa-dollar-sign"></i></div>
                     <div class="match_info_txt">
                         <p>활동비</p>
-                        <p><?=$event_dto_money?>원</p>
+                        <p><?=$event_info['event_dto_money']?>원</p>
                     </div>
                 </div>
                 <div class="match_start">
                     <div class="icon"><i class="fa-solid fa-clock"></i></div>
                     <div class="match_info_txt">
                         <p>시작시간</p>
-                        <p><?=$event_dto_startTime?></p>
+                        <p><?=$event_info['event_dto_startTime']?></p>
                     </div>
                 </div>
                 <div class="match_end">
                     <div class="icon"><i class="fa-solid fa-clock"></i></div>
                     <div class="match_info_txt">
                         <p>종료시간</p>
-                        <p><?=$event_dto_endTime?></p>
+                        <p><?=$event_info['event_dto_endTime']?></p>
                     </div>
                 </div>
             </div>
@@ -183,13 +94,13 @@
             <div class="match_notice_wrap">
                 <div class="match_notice">
                     <div class="match_notice_title">추가 안내 사항</div>
-                    <div class="match_notice_des"><?=$event_dto_description?></div>
+                    <div class="match_notice_des"><?=$event_info['event_dto_description']?></div>
                 </div>
             </div>
             <div class="match_address_wrap">
                 <div class="match_address">
                     <div class="icon"><i class="fa-solid fa-map-pin"></i></div>
-                    <div class="match_address_txt"><?=$event_dto_location?></div>
+                    <div class="match_address_txt"><?=$event_info['event_dto_location']?></div>
                 </div>
             </div>
             <div class="match_map_wrap">
@@ -269,6 +180,38 @@
         </div>
     </div>
 </div>
+<div id="match_change_lity" class="lity-hide popup_wrap match_change_lity">
+    <div class="popup">
+        <div class="popup_header">
+            <div class="popup_header_left">
+                <i class="fa-solid fa-futbol"></i>
+                <p>경기 수정</p>
+            </div>
+            <div class="popup_header_right">
+                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
+            </div>
+        </div>
+        <div class="popup_content match_change player_list">
+            <form action="../admin_control/match_update" method="post">
+                <input type="hidden" name="match_id" id="match_id" class="match_id" value=<?=$event_info['event_dto_id']?>>
+                <div><p>경기 제목</p><input type="text" name="match_title" id="match_title" class="match_title" value="<?=$event_info['event_dto_title']?>"></div>
+                <div><p>경기 위치</p><input type="text" name="match_location" id="match_location" class="match_location" value="<?=$event_info['event_dto_location']?>"></div>
+                <div>
+                    <p>경기 종류</p>
+                    <select name="member_gender" id="member_gender" class="admin_member_gender">
+                        <option value="<?=$event_info['event_dto_gender'] == '남자 경기' ? 'MALE' : 'FEMALE'?>"><?=$event_info['event_dto_gender'] == '남자 경기' ? '남자' : '여자'?></option>
+                        <option value="<?=$event_info['event_dto_gender'] == '남자 경기' ? 'FEMALE' : 'MALE'?>" class="select" id="select"><?=$event_info['event_dto_gender'] == '남자 경기' ? '여자' : '남자'?></option>
+                    </select>
+                </div>
+                <div><p>시작 시간</p><input type="datetime-local" name="match_start_time" id="match_start_time" class="match_start_time" value="<?=$event_info['event_dto_startTime_datetimeLocal']?>"></div>
+                <div><p>종료 시간</p><input type="datetime-local" name="match_end_time" id="match_end_time" class="match_end_time" value="<?=$event_info['event_dto_endTime_datetimeLocal']?>"></div>
+                <div><p>개인 활동비</p><input type="text" name="match_money" id="match_money" class="match_money" value="<?=$event_info['event_dto_money']?>"></div>
+                <div><p>유의사항</p><input type="text" name="match_description" id="match_description" class="match_description" value="<?=$event_info['event_dto_description']?>"></div>
+                <div class="match_change_btn_wrap"><button type="submit" class="match_change_btn">경기 수정</button></div>
+            </form>
+        </div>
+    </div>
+</div>
 <script>
     function add_player() {
         lity('#add_player_lity');
@@ -282,18 +225,9 @@
     function expenses_player() {
         lity('#expenses_player_lity');
     }
-    function change() {
-        const eventTitle = document.getElementById("eventTitle");
-        const newTitle = eventTitle.textContent;
-        $.ajax({
-            url: "../admin_control/match_update.php",
-            type: "POST",
-            data: { cmd: 'apply', newTitle: newTitle, eventId: <?=$event_dto_id?> },
-            success: function(response) {
-                alert(response);
-                location.reload();
-            }
-        });
+    function match_change() {
+        lity('#match_change_lity');
+        $('.match_change_lity').parent().parent().addClass('match_change_lity_wrap');
     }
 </script>
 <?php
