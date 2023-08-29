@@ -10,9 +10,6 @@
         
         include '../admin_data/match_data.php';
         $event_info = match_data($event_id);
-
-        $not_match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberNoList", "POST", array('eventId' => $event_id), $_SESSION['token']); //미참여인원
-        $match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
 ?>
 <div class="page_wrap">
     <div class="page">
@@ -121,11 +118,7 @@
                 <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
             </div>
         </div>
-        <div class="popup_content player_list">
-            <?php foreach ($not_match_player['memberList'] as $item) { ?>
-            <a href="../admin_control/add_match_player?memberId=<?=$item['memberId']?>&event_id=<?=$event_id?>"><?=$item['memberName']?></a><br>
-            <?php } ?>
-        </div>
+        <div class="popup_content player_list" id="add_player"></div>
     </div>
 </div>
 <div id="minus_player_lity" class="lity-hide popup_wrap">
@@ -139,11 +132,7 @@
                 <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
             </div>
         </div>
-        <div class="popup_content player_list">
-            <?php foreach ($match_player['memberList'] as $item) { ?>
-                <a href="../admin_control/minus_match_player?memberId=<?=$item['memberId']?>&event_id=<?=$event_id?>"><?=$item['memberName']?></a><br>
-            <?php } ?>
-        </div>
+        <div class="popup_content player_list" id="minus_player"></div>
     </div>
 </div>
 <div id="list_player_lity" class="lity-hide popup_wrap">
@@ -157,11 +146,7 @@
                 <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
             </div>
         </div>
-        <div class="popup_content player_list">
-            <?php foreach ($match_player['memberList'] as $item) { ?>
-            <p><?=$item['memberName']?></p>
-            <?php } ?>
-        </div>
+        <div class="popup_content player_list" id="player_list"></div>
     </div>
 </div>
 <div id="expenses_player_lity" class="lity-hide popup_wrap">
@@ -214,13 +199,37 @@
 </div>
 <script>
     function add_player() {
-        lity('#add_player_lity');
+        $.ajax({
+            url: '../admin_data/match_member_data.php', 
+            method: 'POST',
+            data: { eventId: <?=$event_id?>, listType: 'memberNoList', func: 'add_player' },
+            success: function(response) {
+                lity('#add_player_lity');
+                document.querySelector('#add_player').innerHTML = response;
+            }
+        });
     }
     function minus_player() {
-        lity('#minus_player_lity');
+        $.ajax({
+            url: '../admin_data/match_member_data.php', 
+            method: 'POST',
+            data: { eventId: <?=$event_id?>, listType: 'memberList', func: 'minus_player' },
+            success: function(response) {
+                lity('#minus_player_lity');
+                document.querySelector('#minus_player').innerHTML = response;
+            }
+        });
     }
     function list_player() {
-        lity('#list_player_lity');
+        $.ajax({
+            url: '../admin_data/match_member_data.php', 
+            method: 'POST',
+            data: { eventId: <?=$event_id?>, listType: 'memberList', func: 'list_player' },
+            success: function(response) {
+                lity('#list_player_lity');
+                document.querySelector('#player_list').innerHTML = response;
+            }
+        });
     }
     function expenses_player() {
         lity('#expenses_player_lity');
