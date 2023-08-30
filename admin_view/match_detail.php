@@ -160,9 +160,7 @@
                 <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
             </div>
         </div>
-        <div class="popup_content player_list">
-            ???
-        </div>
+        <div class="popup_content player_list" id="expenses_player"></div>
     </div>
 </div>
 <div id="match_change_lity" class="lity-hide popup_wrap match_change_lity">
@@ -232,7 +230,15 @@
         });
     }
     function expenses_player() {
-        lity('#expenses_player_lity');
+        $.ajax({
+            url: '../admin_data/match_member_data.php', 
+            method: 'POST',
+            data: { eventId: <?=$event_id?>, listType: 'memberPurchaseList', func: 'expenses_player' },
+            success: function(response) {
+                lity('#expenses_player_lity');
+                document.querySelector('#expenses_player').innerHTML = response;
+            }
+        });
     }
     function match_change() {
         lity('#match_change_lity');

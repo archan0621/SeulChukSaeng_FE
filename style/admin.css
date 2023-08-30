@@ -150,3 +150,11 @@
     padding: 8px;
     margin-top: 8px;
 }
+/* 납부확인요청 */
+.expenses_ok_btn {
+    margin-left: 16px;
+    background: #BEFFBD;
+    border: 1px solid #000;
+    border-radius: 6px;
+    padding: 4px 12px;
+}
