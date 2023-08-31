@@ -76,6 +76,7 @@ a {
 .lity-container {
     width: 100%;
     max-width: 460px !important;
+    padding: 0 20px;
     height: 50%;
 }
 .lity-content {
