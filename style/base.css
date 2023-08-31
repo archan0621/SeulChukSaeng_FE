@@ -89,6 +89,12 @@ a {
 }
 .popup {
     height: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.popup::-webkit-scrollbar {
+    display: none;
 }
 .popup_header {
     display: flex;
