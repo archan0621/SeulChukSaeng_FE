@@ -9,6 +9,8 @@ html, body {
 .font_en {
     font-family: 'Suez One', serif !important;
 }
+.only_pc {display: block;}
+.only_mo {display: none;}
 h2, p {
     margin: 0;
 }
@@ -122,7 +124,9 @@ a {
 .popup_content {
     height: calc(95% - 8px);
 }
-@media (max-width: 389px) {
+@media (max-width: 400px) {
+    .only_pc {display: none;}
+    .only_mo {display: block;}
     .header p {
         font-size: 14px;
     }
