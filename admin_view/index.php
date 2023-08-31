@@ -26,7 +26,7 @@
             <div class="admin_list">
                 <div class="list_title_wrap"><p class="list_title">사용할 메뉴를 선택해주세요</p></div>
                 <div class="txt_center admin_panel_wrap">
-                   <a href="member" class="member_management">
+                   <a href="javascript:;" onclick="no_function()" class="member_management">
                         <div class="icon"><i class="fa-solid fa-user"></i></div>
                         <div class="match_info_txt"><p>부원 관리</p></div>
                     </a>
@@ -34,11 +34,11 @@
                         <div class="icon"><i class="fa-regular fa-futbol"></i></div>
                         <div class="match_info_txt"><p>경기 관리</p></div>
                     </a>
-                   <a href="budgets" class="budgets_management">
+                   <a href="javascript:;" onclick="no_function()" class="budgets_management">
                         <div class="icon"><i class="fa-solid fa-dollar-sign"></i></div>
                         <div class="match_info_txt"><p>회비 관리</p></div>
                     </a>
-                   <a href="notice" class="notice_management">
+                   <a href="javascript:;" onclick="no_function()" class="notice_management">
                         <div class="icon"><i class="fa-solid fa-volume-high"></i></div>
                         <div class="match_info_txt"><p>공지 관리</p></div>
                     </a>
@@ -47,10 +47,7 @@
             <div>
                 <div class="list_title_wrap surver_log_wrap"><p class="list_title">서버 로그</p><p class="list_title"><a href="javascript:;" onclick="reload()"><i class="fa-solid fa-rotate"></i>새로고침</a></p></div>
                 <div class="surver_log">
-                Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                    <!-- 서버로그 -->
                 </div>
             </div>
         </div>
@@ -59,6 +56,9 @@ Lorem Ipsum Lorem Ipsum Lorem Ipsum
 <script>
     function reload() {
         location.reload();
+    }
+    function no_function() {
+        alert('공사 중입니다!');
     }
 </script>
 <?php

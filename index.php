@@ -35,7 +35,7 @@
                         <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
                         <p><a href="/admin_view/index">관리자 메뉴</a></p>
                         <?php  } ?>
-                        <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
+                        <p><a href="javascript:;" onclick="no_function()"><?=$_SESSION['member_id']?>님</a></p>
                         <p><a href="view_control/signout">로그아웃</a></p>
                     </div>
                 </div>
@@ -55,24 +55,18 @@
                     </div>
                 </div>
                 <div class="list_wrap notice_list">
-                    <a href="/view/notice" class="list_title_wrap"><p class="list_title">공지사항</p></a>
+                    <a href="javascript:;" onclick="no_function()" class="list_title_wrap"><p class="list_title">공지사항</p></a>
                     <div class="list_main">
                         <div>
-                            <p class="list">공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1공지사항1</p>
-                            <p class="list">공지사항2</p>
-                            <p class="list">공지사항3</p>
-                            <p class="list">공지사항4</p>
+                            <!-- 공지사항 리스트 -->
                         </div>
                     </div>
                 </div>
                 <div class="list_wrap budgets_list">
-                    <a href="/view/budgets" class="list_title_wrap"><p class="list_title">회비 사용 내역</p></a>
+                    <a href="javascript:;" onclick="no_function()" class="list_title_wrap"><p class="list_title">회비 사용 내역</p></a>
                     <div class="list_main">
                         <div>
-                            <p class="list">회비1회비1회비1회비1회비1회비1회비1회비1회비1회비1</p>
-                            <p class="list">회비2</p>
-                            <p class="list">회비3</p>
-                            <p class="list">회비4</p>
+                            <!-- 회비 리스트 -->
                         </div>
                     </div>
                 </div>
@@ -100,6 +94,11 @@
         </div>
     <?php } ?>
 </div>
+<script>
+    function no_function() {
+        alert('공사 중입니다!');
+    }
+</script>
 <?php
     }
 ?>

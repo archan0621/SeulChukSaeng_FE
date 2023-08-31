@@ -156,7 +156,7 @@
                         <div class="icon"><i class="fa-solid fa-user-check"></i></div>
                         <div class="attendance_check_txt"><p>출석 확인</p></div>
                     </a>
-                    <a href="#" class="expenses_check">
+                    <a href="../view_control/purchasereq_check?eventId=<?=$event_dto_id?>&memberId=<?=$_SESSION['member_id']?>" class="expenses_check">
                         <div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                         <div class="expenses_check_txt"><p>납부 확인</p></div>
                     </a>
@@ -179,7 +179,7 @@
                 </div>
             </div>
             <div class="match_map_wrap">
-                <div class="match_map"></div>
+                <div id="map" class="match_map"></div>
             </div>
         </div>
     </div>
