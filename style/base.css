@@ -93,12 +93,6 @@ a {
 }
 .popup {
     height: 100%;
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.popup::-webkit-scrollbar {
-    display: none;
 }
 .popup_header {
     display: flex;
@@ -125,6 +119,12 @@ a {
 }
 .popup_content {
     height: calc(95% - 8px);
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.popup_content::-webkit-scrollbar {
+    display: none;
 }
 @media (max-width: 400px) {
     .only_pc {display: none;}
