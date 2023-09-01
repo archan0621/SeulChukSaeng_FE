@@ -20,25 +20,26 @@
     $member_mobile = $_POST['member_mobile'];
     $member_gender = $_POST['member_gender'];
     $member_code = $_POST['member_code'];
-  }
-
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $responseData = RestApiCall("https://sellstory.kro.kr:30621/member/join", 
-    CURLOPT_POST, 
-    array(
-      "id" => $member_id,
-      "password" => $member_pw, 
-      "name" => $member_name, 
-      "phone" => $member_mobile,
-      "gender" => $member_gender,
-      "verifyCode" => $member_code
-      )
-    );
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $responseData = RestApiCall("https://sellstory.kro.kr:30621/member/join", 
+      CURLOPT_POST, 
+      array(
+        "id" => $member_id,
+        "password" => $member_pw, 
+        "name" => $member_name, 
+        "phone" => $member_mobile,
+        "gender" => $member_gender,
+        "verifyCode" => $member_code
+        )
+      );
+      }
+  
+    if ($responseData['result'] == 'fail') {
+      echo "<script>alert('".$responseData['message']."');history.back();</script>";
+    } elseif ($responseData['result'] == 'success') {
+      echo "<script>alert('".$responseData['message']."');location.href='/';</script>";
     }
-
-  if ($responseData['result'] == 'fail') {
-    echo "<script>alert('".$responseData['message']."');history.back();</script>";
-  } elseif ($responseData['result'] == 'success') {
-    echo "<script>alert('".$responseData['message']."');location.href='/';</script>";
   }
+
 ?>
