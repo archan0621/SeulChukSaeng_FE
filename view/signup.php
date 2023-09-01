@@ -12,7 +12,7 @@
             </div>
             <div class="signup_main">
                 <form action="/view_control/signup_control" method="post">
-                    <input type="text" name="member_id" id="member_id" class="m_b_16" placeholder="아이디를 입력해주세요">
+                    <input type="text" oninput="id_check(this)" name="member_id" id="member_id" class="m_b_16" placeholder="아이디를 입력해주세요(영문, 숫자, 특수문자(_,!,@))">
                     <input type="password" name="member_pw" id="member_pw" class="m_b_16" placeholder="비밀번호를 입력해주세요">
                     <input type="text" name="member_name" id="member_name" class="m_b_16" placeholder="이름을 입력해주세요">
                     <input type="text" oninput="autoHyphen(this)" maxlength="13" name="member_mobile" id="member_mobile" class="m_b_16" placeholder="전화번호를 입력해주세요 (번호만 입력)">
@@ -40,6 +40,13 @@
             member_gender.classList.add('select_on');
         } else {
             member_gender.classList.remove('select_on');
+        }
+    }
+    const id_check = (target) => {
+        const inputValue = target.value;
+        const regex = /^[a-zA-Z0-9_!@]*$/;
+        if (!regex.test(inputValue)) {
+            target.value = inputValue.replace(/[^a-zA-Z0-9_!@]/g, ''); // 허용되지 않는 문자를 제거합니다.
         }
     }
 </script>

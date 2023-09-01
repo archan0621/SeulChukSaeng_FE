@@ -9,6 +9,8 @@ html, body {
 .font_en {
     font-family: 'Suez One', serif !important;
 }
+.only_pc {display: block;}
+.only_mo {display: none;}
 h2, p {
     margin: 0;
 }
@@ -37,6 +39,7 @@ a {
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .header a {
     color: #fff;
@@ -51,7 +54,7 @@ a {
 .user_info a {
     margin-left: 8px;
 }
-.header p {
+.header p,.header a {
     font-size: 16px;
     color: #fff;
 }
@@ -73,6 +76,7 @@ a {
 .lity-container {
     width: 100%;
     max-width: 460px !important;
+    padding: 0 20px;
     height: 50%;
 }
 .lity-content {
@@ -89,6 +93,12 @@ a {
 }
 .popup {
     height: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.popup::-webkit-scrollbar {
+    display: none;
 }
 .popup_header {
     display: flex;
@@ -116,8 +126,10 @@ a {
 .popup_content {
     height: calc(95% - 8px);
 }
-@media (max-width: 389px) {
-    .header p {
-        font-size: 14px;
+@media (max-width: 400px) {
+    .only_pc {display: none;}
+    .only_mo {display: block;}
+    .header p, .header a {
+        font-size: 12px;
     }
 }

@@ -121,6 +121,8 @@
     box-sizing: border-box;
 }
 select {
+    -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     max-width: 460px;
     border: 1px solid #9c9c9c;
