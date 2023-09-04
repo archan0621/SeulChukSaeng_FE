@@ -2,7 +2,7 @@
     include '../tpl/body_tpl.php';
     function html_body() {
         global $_SESSION;
-        if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] == 'USER') {
+        if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
             header('Location: /');
         }
 ?>
