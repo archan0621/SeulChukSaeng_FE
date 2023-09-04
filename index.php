@@ -1,10 +1,10 @@
 <?php
     include 'tpl/body_tpl.php';
     function html_body() {
-        global $_SESSION;
+        global $_SESSION, $my_api;
         if (isset($_SESSION['token'])) {
             require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
-            $get_event_list = JwtApiCall("https://sellstory.kro.kr:30621/event/list", "POST", array(''), $_SESSION['token']);
+            $get_event_list = JwtApiCall($my_api."event/list", "POST", array(''), $_SESSION['token']);
             class event_dto {
                 private $event_id;
                 private $event_title;

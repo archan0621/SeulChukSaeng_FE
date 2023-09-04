@@ -1,5 +1,7 @@
 <?php
     require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+    $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+    global $my_api;
 
     if (!$_POST['match_title']) {
         echo "<script>alert('제목을 입력해주세요');history.back();</script>";
@@ -23,10 +25,9 @@
         $start_time = $_POST['match_start_time'];
         $end_time = $_POST['match_end_time'];
         $description = $_POST['match_description'];
-    }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $responseData = JwtApiCall("https://sellstory.kro.kr:30621/event/create", 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $responseData = JwtApiCall($my_api."event/create", 
             "POST", 
             array(
                 "title" => $title,
@@ -39,11 +40,12 @@
             ), 
             $_SESSION['token']);
         }
-    
-      if ($responseData['result'] == 'fail') {
+
+        if ($responseData['result'] == 'fail') {
         echo "<script>alert('".$responseData['message']."');</script>";
         header("Location: ../admin_view/match");
-      } elseif ($responseData['result'] == 'success') {
+        } elseif ($responseData['result'] == 'success') {
         echo "<script>alert('".$responseData['message']."');location.href='../admin_view/index';</script>";
-      }
+        }
+    }
 ?>

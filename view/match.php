@@ -1,13 +1,13 @@
 <?php
     include '../tpl/body_tpl.php';
     function html_body() {
-        global $_SESSION;
+        global $_SESSION, $my_api;
         if (!isset($_SESSION['member_id'])) {
             header("location: ../view_control/signout");
         }
         $event_id = $_GET['event_id'];
         require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
-        $get_event = JwtApiCall("https://sellstory.kro.kr:30621/event/read", "POST", array('eventId' => $event_id), $_SESSION['token']);
+        $get_event = JwtApiCall($my_api."event/read", "POST", array('eventId' => $event_id), $_SESSION['token']);
         class event_dto {
             private $eventId;
             private $title;
@@ -100,7 +100,7 @@
             $event_dto_gender = '혼성 경기';
         }
 
-        $match_player = JwtApiCall("https://sellstory.kro.kr:30621/event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
+        $match_player = JwtApiCall($my_api."event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
 ?>
 <div class="page_wrap">
     <div class="page">

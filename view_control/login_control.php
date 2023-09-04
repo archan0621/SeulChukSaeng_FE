@@ -1,6 +1,8 @@
 <?php
   require $_SERVER['DOCUMENT_ROOT'].'/model/RestApiCall.php';
   require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+  $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+  global $my_api;
 
   if (!$_POST['member_id']) {
     echo "<script>alert('아이디를 입력해주세요');history.back();</script>";
@@ -11,12 +13,12 @@
     $member_pw = $_POST['member_pw'];
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $responseData = RestApiCall("https://sellstory.kro.kr:30621/member/login", CURLOPT_POST, array("loginId" => $member_id, 'password' => $member_pw));
+      $responseData = RestApiCall($my_api."member/login", CURLOPT_POST, array("loginId" => $member_id, 'password' => $member_pw));
     }
   
     if ($responseData['result'] == 'success') {
       /* 유저 이름 조회 */
-      $get_user_name = JwtApiCall("https://sellstory.kro.kr:30621/member/getUserName", "GET", array(''), $responseData['token']);
+      $get_user_name = JwtApiCall($my_api."member/getUserName", "GET", array(''), $responseData['token']);
       
       if ($get_user_name['result'] == 'success') {
         $_SESSION['token'] = $responseData['token'];

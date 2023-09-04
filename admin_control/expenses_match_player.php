@@ -1,14 +1,14 @@
 <?php
-    global $_SESSION;
-
     require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+    $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+    global $my_api;
 
     $eventId = $_GET['event_id'];
     $memberId = $_GET['memberId'];
 
     if (isset($eventId) && isset($memberId)) {
         if ($memberId) {
-            $responseData = JwtApiCall("https://sellstory.kro.kr:30621/event/memberPurchaseCheck", 
+            $responseData = JwtApiCall($my_api."event/memberPurchaseCheck", 
             "POST", 
             array(
                 "eventId" => $eventId,

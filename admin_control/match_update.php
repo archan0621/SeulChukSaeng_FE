@@ -1,5 +1,7 @@
 <?php
     require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+    $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+    global $my_api;
 
     if (!$_POST['match_id']) {
         echo "<script>alert('경기를 선택해주세요');history.back();</script>";
@@ -28,7 +30,7 @@
         $description = $_POST['match_description'];
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $responseData = JwtApiCall("https://sellstory.kro.kr:30621/event/update", 
+            $responseData = JwtApiCall($my_api."event/update", 
             "POST", 
             array(
                 "eventId" => $id,
