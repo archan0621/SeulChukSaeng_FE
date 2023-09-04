@@ -3,7 +3,10 @@
     $list_type = $_POST['listType'];
     if (isset($event_id) && isset($list_type)) {
         require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
-        $memberSearch = JwtApiCall("https://sellstory.kro.kr:30621/event/".$list_type, "POST", array('eventId' => $event_id), $_SESSION['token']);
+        $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+        global $my_api;
+
+        $memberSearch = JwtApiCall($my_api."event/".$list_type, "POST", array('eventId' => $event_id), $_SESSION['token']);
         if ($memberSearch['result'] == 'fail' && $memberSearch['message'] == '만료된 토큰으로 JWT 요청시도') {
             echo "<script>alert('세션이 만료되었습니다. 다시 로그인해주세요.');location.href='../view_control/signout';</script>";
         } else {

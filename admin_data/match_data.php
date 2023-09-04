@@ -1,6 +1,9 @@
 <?php
     function match_data($event_id) {
-        $get_event = JwtApiCall("https://sellstory.kro.kr:30621/event/read", "POST", array('eventId' => $event_id), $_SESSION['token']);
+        $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+        global $my_api;
+
+        $get_event = JwtApiCall($my_api."event/read", "POST", array('eventId' => $event_id), $_SESSION['token']);
         class event_dto {
             private $eventId;
             private $title;

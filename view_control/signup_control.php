@@ -1,5 +1,7 @@
 <?php
   require $_SERVER['DOCUMENT_ROOT'].'/model/RestApiCall.php';
+  $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+  global $my_api;
 
   if (!$_POST['member_id']) {
     echo "<script>alert('아이디를 입력해주세요');history.back();</script>";
@@ -22,7 +24,7 @@
     $member_code = $_POST['member_code'];
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $responseData = RestApiCall("https://sellstory.kro.kr:30621/member/join", 
+      $responseData = RestApiCall($my_api."member/join", 
       CURLOPT_POST, 
       array(
         "id" => $member_id,
