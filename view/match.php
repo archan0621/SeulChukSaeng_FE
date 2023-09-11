@@ -175,7 +175,7 @@
             <div class="match_address_wrap">
                 <div class="match_address">
                     <div class="icon"><i class="fa-solid fa-map-pin"></i></div>
-                    <div class="match_address_txt"><?=$event_dto_location?></div>
+                    <div id="match_address_txt" class="match_address_txt"><?=$event_dto_location?></div>
                 </div>
             </div>
             <div class="match_map_wrap">
@@ -206,6 +206,40 @@
     function player_check_lity() {
         lity('#player_check_lity');
     }
+    function matchLocation() {
+        var address = document.getElementById('match_address_txt').textContent;
+        var centerCoord = new naver.maps.LatLng(37.5666102, 126.9783881);
+        var map = new naver.maps.Map('map', {
+            center: centerCoord,
+            zoom: 15
+        });
+
+        naver.maps.Service.geocode({
+            address: address
+        }, function(status, response) {
+            if (status === naver.maps.Service.Status.OK) {
+                var result = response.result;
+                var firstItem = result.items[0];
+                var coords = new naver.maps.LatLng(firstItem.point.y, firstItem.point.x);
+
+                map.setCenter(coords);
+
+                var marker = new naver.maps.Marker({
+                    position: coords,
+                    map: map
+                });
+
+                naver.maps.Event.addListener(marker, 'click', function() {
+                    var naverMapURL = 'https://map.naver.com/?dlevel=11&lat=' + coords._lat + '&lng=' + coords._lng;
+                    window.open(naverMapURL, '_blank');
+                });
+            } else {
+                alert('주소를 찾을 수 없습니다.');
+            }
+        });
+    }
+    window.onload = matchLocation;
+    naver.maps.onJSContentLoaded = matchLocation;
 </script>
 <?php
     }
