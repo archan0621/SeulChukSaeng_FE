@@ -28,10 +28,7 @@ function JwtApiCall($url, $httpMethod, $param, $access_token) {
 
     if ($responseData['result'] == 'fail' && $responseData['message'] == '만료된 토큰으로 JWT 요청시도') {
         echo "<script>alert('세션이 만료되었습니다. 다시 로그인해주세요.');location.href='../view_control/signout';</script>";
-    } elseif ($responseData['result'] == 'fail') {
-        echo "<script>alert('".$responseData['message']."');history.back();</script>";
-        return $responseData;
-    } elseif ($responseData['result'] == 'success') {
+    } elseif ($responseData['result'] == 'fail' || $responseData['result'] == 'success') {
         return $responseData;
     } else {
         echo "<script>alert('서버와 연결이 불안정합니다.');location.href='../view_control/signout';</script>";

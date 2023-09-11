@@ -18,8 +18,7 @@
         }
         
         if ($responseData['result'] == 'fail') {
-            echo "<script>alert('".$responseData['message']."');</script>";
-            header("Location: ../admin_view/match");
+            echo "<script>alert('".$responseData['message']."');history.back();</script>";
         } elseif ($responseData['result'] == 'success') {
             echo "<script>alert('".$responseData['message']."');history.back();</script>";
         }

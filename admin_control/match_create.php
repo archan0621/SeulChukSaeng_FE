@@ -41,11 +41,10 @@
             $_SESSION['token']);
         }
 
-        if ($responseData['result'] == 'fail') {
-        echo "<script>alert('".$responseData['message']."');</script>";
-        header("Location: ../admin_view/match");
+       if ($responseData['result'] == 'fail') {
+            echo "<script>alert('".$responseData['message']."');location.href='../admin_view/match';</script>";
         } elseif ($responseData['result'] == 'success') {
-        echo "<script>alert('".$responseData['message']."');location.href='../admin_view/index';</script>";
+            echo "<script>alert('".$responseData['message']."');location.href='../admin_view/match';</script>";
         }
     }
 ?>
