@@ -87,6 +87,7 @@
 }
 .match_create_wrap input {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     box-sizing: border-box;
     border-radius: 8px;
@@ -158,4 +159,7 @@
     border: 1px solid #000;
     border-radius: 6px;
     padding: 4px 12px;
+}
+.expenses_ok_btn:not(:first-child) {
+    margin-top: 6px;
 }

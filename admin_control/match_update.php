@@ -46,10 +46,9 @@
         }
         
         if ($responseData['result'] == 'fail') {
-        echo "<script>alert('".$responseData['message']."');</script>";
-        header("Location: ../admin_view/match");
+            echo "<script>alert('".$responseData['message']."');location.href='../admin_view/index';</script>";
         } elseif ($responseData['result'] == 'success') {
-        echo "<script>alert('".$responseData['message']."');location.href='../admin_view/index';</script>";
+            echo "<script>alert('".$responseData['message']."');location.href='../admin_view/match_detail?event_id=$id';</script>";
         }
     }
 

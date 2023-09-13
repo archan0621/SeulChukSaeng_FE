@@ -3,22 +3,24 @@
     $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
     global $my_api;
 
-    $eventId = $_GET['eventId'];
-    $memberId = $_GET['memberId'];
+    $eventId = $_POST['eventId'];
+    $latitude = $_POST['latitude'];
+    $longitude = $_POST['longitude'];
 
-    if (isset($eventId) && isset($memberId)) {
+    if (isset($eventId) && isset($latitude) && isset($longitude)) {
         $responseData = JwtApiCall($my_api."event/memberAttend", 
         "POST", 
         array(
             "eventId" => $eventId,
-            "memberId" => $memberId
+            "lat" => $latitude,
+            "lng" => $longitude,
         ), 
         $_SESSION['token']);
         
         if ($responseData['result'] == 'fail') {
-            echo "<script>alert('".$responseData['message']."');history.back();</script>";
+            echo $responseData['message'];
         } elseif ($responseData['result'] == 'success') {
-            echo "<script>alert('".$responseData['message']."');history.back();</script>";
+            echo $responseData['message'];
         }
     }
 

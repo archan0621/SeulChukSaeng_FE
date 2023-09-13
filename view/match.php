@@ -152,7 +152,7 @@
             </div>
             <div class="member_check_wrap">
                 <div class="member_check">
-                    <a href="../view_control/attendance_check?eventId=<?=$event_dto_id?>&memberId=<?=$_SESSION['member_id']?>" class="attendance_check">
+                    <a href="javascript:;" onclick="attendance_check()" class="attendance_check">
                         <div class="icon"><i class="fa-solid fa-user-check"></i></div>
                         <div class="attendance_check_txt"><p>출석 확인</p></div>
                     </a>
@@ -175,7 +175,7 @@
             <div class="match_address_wrap">
                 <div class="match_address">
                     <div class="icon"><i class="fa-solid fa-map-pin"></i></div>
-                    <div class="match_address_txt"><?=$event_dto_location?></div>
+                    <div id="match_address_txt" class="match_address_txt"><?=$event_dto_location?></div>
                 </div>
             </div>
             <div class="match_map_wrap">
@@ -206,6 +206,58 @@
     function player_check_lity() {
         lity('#player_check_lity');
     }
+    function attendance_check() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude; // 위도
+                var longitude = position.coords.longitude; // 경도
+                $.ajax({
+                    url: '../view_control/attendance_check', 
+                    method: 'POST',
+                    data: { eventId: <?=$event_dto_id?>, latitude: latitude, longitude: longitude },
+                    success: function(response) {
+                        alert(response);
+                    }
+                });
+            });
+        } else {
+            alert("위치정보를 지원하지 않는 브라우저입니다.");
+        }
+    }
+    function matchLocation() {
+        var address = document.getElementById('match_address_txt').textContent;
+        var centerCoord = new naver.maps.LatLng(37.5666102, 126.9783881);
+        var map = new naver.maps.Map('map', {
+            center: centerCoord,
+            zoom: 15
+        });
+
+        naver.maps.Service.geocode({
+            address: address
+        }, function(status, response) {
+            if (status === naver.maps.Service.Status.OK) {
+                var result = response.result;
+                var firstItem = result.items[0];
+                var coords = new naver.maps.LatLng(firstItem.point.y, firstItem.point.x);
+
+                map.setCenter(coords);
+
+                var marker = new naver.maps.Marker({
+                    position: coords,
+                    map: map
+                });
+
+                naver.maps.Event.addListener(marker, 'click', function() {
+                    var naverMapURL = 'https://map.naver.com/?dlevel=11&lat=' + coords._lat + '&lng=' + coords._lng;
+                    window.open(naverMapURL, '_blank');
+                });
+            } else {
+                alert('주소를 찾을 수 없습니다.');
+            }
+        });
+    }
+    window.onload = matchLocation;
+    naver.maps.onJSContentLoaded = matchLocation;
 </script>
 <?php
     }
