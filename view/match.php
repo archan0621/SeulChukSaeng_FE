@@ -101,6 +101,15 @@
         }
 
         $match_player = JwtApiCall($my_api."event/memberList", "POST", array('eventId' => $event_id), $_SESSION['token']); //참여인원
+
+        function comparePlayers($player1, $player2) {
+            $sortA = $player1['memberName'];
+            $sortB = $player2['memberName'];
+
+            return strcmp($sortA, $sortB);
+        }
+    
+        usort($match_player['memberList'], 'comparePlayers');
 ?>
 <div class="page_wrap">
     <div class="page">

@@ -7,6 +7,16 @@
         global $my_api;
 
         $memberSearch = JwtApiCall($my_api."event/".$list_type, "POST", array('eventId' => $event_id), $_SESSION['token']);
+
+        function comparePlayers($player1, $player2) {
+            $sortA = $player1['memberName'];
+            $sortB = $player2['memberName'];
+
+            return strcmp($sortA, $sortB);
+        }
+    
+        usort($memberSearch['memberList'], 'comparePlayers');
+
         if ($memberSearch['result'] == 'fail' && $memberSearch['message'] == '만료된 토큰으로 JWT 요청시도') {
             echo "<script>alert('세션이 만료되었습니다. 다시 로그인해주세요.');location.href='../view_control/signout';</script>";
         } else {
