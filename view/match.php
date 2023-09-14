@@ -228,9 +228,15 @@
                         alert(response);
                     }
                 });
+            }, function(error) {
+                if (error.code === error.PERMISSION_DENIED) {
+                    alert("위치 권한이 거부되었습니다.");
+                } else {
+                    alert("위치 정보를 가져오는 중 오류가 발생했습니다.");
+                }
             });
         } else {
-            alert("위치정보를 지원하지 않는 브라우저입니다.");
+            alert("위치 정보를 지원하지 않는 브라우저입니다.");
         }
     }
     function matchLocation() {
