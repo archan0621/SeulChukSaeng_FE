@@ -160,6 +160,6 @@
     border-radius: 6px;
     padding: 4px 12px;
 }
-.expenses_ok_btn:not(:first-child) {
-    margin-top: 6px;
+.expenses_ok_btn_wrap:not(:first-child) {
+    margin-top: 12px;
 }
