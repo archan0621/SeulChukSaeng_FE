@@ -26,7 +26,26 @@
                 } elseif ($_POST['func'] == 'minus_player') {
                     echo "<a href=\"../admin_control/minus_match_player?memberId={$item['memberId']}&event_id={$event_id}\">{$item['memberName']}</a><br/>";
                 } elseif ($_POST['func'] == 'list_player') {
-                    echo "{$item['memberName']}<br/>";
+                    if($item['attendance']) {
+                        if ($item['attendance'] == 'LATE') {
+                            $item['attendance'] = '지각';
+                        } else {
+                            $item['attendance'] = $item['attendance'] == 'ABSENT' ? '미출석' : '출석';
+                        }
+                    } else {
+                        $item['attendance'] = '';
+                    }
+
+                    if($item['purchaseStatus']) {
+                        if ($item['purchaseStatus'] == 'NOT_PURCHASED') {
+                            $item['purchaseStatus'] = '미납';
+                        } else {
+                            $item['purchaseStatus'] = $item['purchaseStatus'] == 'WAITING' ? '확인 대기중' : '납부 완료';
+                        }
+                    } else {
+                        $item['purchaseStatus'] = '';
+                    }
+                    echo "{$item['memberName']} / {$item['attendance']} / {$item['purchaseStatus']}<br/>";
                 } elseif ($_POST['func'] == 'expenses_player') {
                     echo "<div class=\"expenses_ok_btn_wrap\"><a href=\"../admin_control/expenses_match_player?event_id={$event_id}\">{$item['memberName']}</a><a class=\"expenses_ok_btn\" href=\"../admin_control/expenses_match_player?memberId={$item['memberId']}&event_id={$event_id}\">확인</a><br/>";
                 } else {
