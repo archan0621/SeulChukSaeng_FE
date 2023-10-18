@@ -1,5 +1,6 @@
 <?php
     require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+    include '../loading/loading.php';
     $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
     global $my_api;
 
@@ -20,6 +21,8 @@
     } elseif (!$_POST['match_description']) {
         echo "<script>alert('유의사항을 입력해주세요');history.back();</script>";
     } else {
+        loading_page(true);
+
         $id = $_POST['match_id'];
         $title = $_POST['match_title'];
         $location = $_POST['match_location'];
@@ -46,8 +49,10 @@
         }
         
         if ($responseData['result'] == 'fail') {
+            loading_page(false);
             echo "<script>alert('".$responseData['message']."');location.href='../admin_view/index';</script>";
         } elseif ($responseData['result'] == 'success') {
+            loading_page(false);
             echo "<script>alert('".$responseData['message']."');location.href='../admin_view/match_detail?event_id=$id';</script>";
         }
     }
