@@ -1,5 +1,6 @@
 <?php
     require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+    include '../loading/loading.php';
     $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
     global $my_api;
 
@@ -18,6 +19,8 @@
     } elseif (!$_POST['match_description']) {
         echo "<script>alert('유의사항을 입력해주세요');history.back();</script>";
     }  else {
+        loading_page(true);
+        
         $title = $_POST['match_title'];
         $location = $_POST['match_location'];
         $gender = $_POST['member_gender'];
@@ -25,7 +28,7 @@
         $start_time = $_POST['match_start_time'];
         $end_time = $_POST['match_end_time'];
         $description = $_POST['match_description'];
-
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $responseData = JwtApiCall($my_api."event/create", 
             "POST", 
@@ -42,8 +45,10 @@
         }
 
        if ($responseData['result'] == 'fail') {
+            loading_page(false);
             echo "<script>alert('".$responseData['message']."');location.href='../admin_view/match';</script>";
         } elseif ($responseData['result'] == 'success') {
+            loading_page(false);
             echo "<script>alert('".$responseData['message']."');location.href='../admin_view/match';</script>";
         }
     }

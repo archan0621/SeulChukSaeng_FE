@@ -165,7 +165,7 @@
                         <div class="icon"><i class="fa-solid fa-user-check"></i></div>
                         <div class="attendance_check_txt"><p>출석 확인</p></div>
                     </a>
-                    <a href="../view_control/purchasereq_check?eventId=<?=$event_dto_id?>&memberId=<?=$_SESSION['member_id']?>" class="expenses_check">
+                    <a href="javascript:;" onclick="purchasereq_check()" class="expenses_check">
                         <div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                         <div class="expenses_check_txt"><p>납부 확인</p></div>
                     </a>
@@ -212,11 +212,27 @@
     </div>
 </div>
 <script>
+    function loading_page(status) {
+        if (status) {
+            $.ajax({
+                url: '../loading/loading',
+                method: 'POST',
+                data: { status: status },
+                success: function(response) {
+                    document.body.innerHTML += response;
+                }
+            });
+        } else {
+            const loading = document.getElementById("spinner-wrapper");
+            loading.parentNode.removeChild(loading);
+        }
+    }
     function player_check_lity() {
         lity('#player_check_lity');
     }
     function attendance_check() {
         if ("geolocation" in navigator) {
+            loading_page(true);
             navigator.geolocation.getCurrentPosition(function(position) {
                 var latitude = position.coords.latitude; // 위도
                 var longitude = position.coords.longitude; // 경도
@@ -225,6 +241,7 @@
                     method: 'POST',
                     data: { eventId: <?=$event_dto_id?>, latitude: latitude, longitude: longitude },
                     success: function(response) {
+                        loading_page(false);
                         alert(response);
                     }
                 });
@@ -236,8 +253,21 @@
                 }
             });
         } else {
-            alert("위치 정보를 지원하지 않는 브라우저입니다.");
+            loading_page(false);
+            alert("위치정보를 지원하지 않는 브라우저입니다.");
         }
+    }
+    function purchasereq_check() {
+        loading_page(true);
+        $.ajax({
+            url: '../view_control/purchasereq_check',
+            method: 'POST',
+            data: { eventId: <?=$event_dto_id?> },
+            success: function(response) {
+                loading_page(false);
+                alert(response);
+            }
+        });
     }
     function matchLocation() {
         var address = document.getElementById('match_address_txt').textContent;
