@@ -97,6 +97,16 @@
     font-family: 'Noto Sans KR', sans-serif !important;
     text-align: start;
 }
+.admin_match_location_wrap {
+    display: flex;
+}
+.admin_match_location_select {
+    width: auto;
+    background: #fff;
+    font-weight: 400;
+    padding: 8px;
+    margin-left: 12px;
+}
 .admin_member_gender {
     background: #fff;
     font-weight: 400;
