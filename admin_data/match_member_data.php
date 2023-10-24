@@ -47,7 +47,7 @@
                     }
                     echo "{$item['memberName']} / {$item['attendance']} / {$item['purchaseStatus']}<br/>";
                 } elseif ($_POST['func'] == 'expenses_player') {
-                    echo "<div class=\"expenses_ok_btn_wrap\"><a href=\"../admin_control/expenses_match_player?event_id={$event_id}\">{$item['memberName']}</a><a class=\"expenses_ok_btn\" href=\"../admin_control/expenses_match_player?memberId={$item['memberId']}&event_id={$event_id}\">확인</a><br/>";
+                    echo "<div class=\"expenses_ok_btn_wrap\"><a href=\"../admin_control/expenses_match_player?event_id={$event_id}\">{$item['memberName']}</a><a class=\"expenses_ok_btn\" href=\"../admin_control/expenses_match_player?memberId={$item['memberId']}&event_id={$event_id}\">확인</a><br/></div>";
                 } else {
                     echo "데이터를 불러오지 못했습니다.<br/>";
                 }
