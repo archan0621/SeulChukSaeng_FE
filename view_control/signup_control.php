@@ -7,6 +7,8 @@
     echo "<script>alert('아이디를 입력해주세요');history.back();</script>";
   } elseif (!$_POST['member_pw']) {
     echo "<script>alert('비밀번호를 입력해주세요');history.back();</script>";
+  } elseif (!preg_match('/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9!@#$%^&*()-+=]{8,}$/', $_POST['member_pw'])) {
+    echo "<script>alert('비밀번호는 영어, 숫자를 포함해 8자리 이상이여야 합니다.');history.back();</script>";
   } elseif (!$_POST['member_name']) {
     echo "<script>alert('이름을 입력해주세요');history.back();</script>";
   } elseif (!$_POST['member_mobile']) {
