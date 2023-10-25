@@ -30,7 +30,18 @@
                 <div class="match_create_wrap">
                     <form action="../admin_control/match_create" method="post">
                         <div><p>경기 제목</p><input type="text" name="match_title" id="match_title" class="match_title" placeholder="경기 제목을 입력해주세요"></div>
-                        <div><p>경기 위치</p><input type="text" name="match_location" id="match_location" class="match_location" placeholder="경기 위치를 선택해주세요"></div>
+                        <div>
+                            <p>경기 위치</p>
+                            <div class="admin_match_location_wrap">
+                                <input type="text" name="match_location" id="match_location" class="match_location" placeholder="경기 위치를 입력해주세요">
+                                <select name="match_location_select" id="match_location_select" class="admin_match_location_select" onchange="changeMatchLocation(this)">
+                                    <option value="none">직접 입력</option>
+                                    <option value="서울시 강남구 도곡동 산21" class="select" id="select">중대부고</option>
+                                    <option value="서울 송파구 올림픽로 240 잠실롯데마트 제타플렉스동 R층" class="select" id="select">잠실 로꼬스타디움</option>
+                                    <option value="한강로3가 40-999" class="select" id="select">용산 더베이스</option>
+                                </select>
+                            </div>
+                        </div>
                         <div>
                             <p>경기 종류</p>
                             <select name="member_gender" id="member_gender" class="admin_member_gender" onchange="changeGender(this)">
@@ -51,6 +62,18 @@
     </div>
 </div>
 <script>
+    const changeMatchLocation = (target) => {
+        const match_location_select = document.getElementById('match_location_select');
+        const match_location = document.getElementById('match_location');
+        if (target.value != 'none') {
+            match_location_select.classList.add('select_on');
+            match_location.value = target.value;
+        } else {
+            match_location_select.classList.remove('select_on');
+            match_location.value = '';
+        }
+    }
+
     const changeGender = (target) => {
         const member_gender = document.getElementById('member_gender');
         if (target.value == 'MALE' || target.value == 'FEMALE') {
