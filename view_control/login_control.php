@@ -27,6 +27,20 @@
         $_SESSION['token'] = $responseData['token'];
         $_SESSION['member_id'] = $get_user_name['message'];
         $_SESSION['userRole'] = $get_user_name['userRole'];
+        if (isset($_POST['save_login']) && $_POST['save_login']){
+          $cookie_name = "save_login";
+          $user_data = array(
+            'member_id' => $member_id,
+            'member_pw' => $member_pw
+          );
+          $cookie_value = serialize($user_data);
+          $expiration_time = time() + 31536000; // 1년
+          setcookie($cookie_name, $cookie_value, $expiration_time, "/");
+        } else {
+          $cookie_name = "save_login";
+          $expiration_time = time() - 3600; // 현재 시간보다 1시간 이전
+          setcookie($cookie_name, "", $expiration_time, "/");
+        }
         loading_page(false);
         header("Location: /");
       } elseif ($get_user_name['result'] == 'fail') {
