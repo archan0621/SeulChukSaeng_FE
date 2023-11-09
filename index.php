@@ -22,6 +22,15 @@
                 }
             }
         }
+        $id = '';
+        $pw = '';
+        $checked = false;
+        if(isset($_COOKIE['save_login'])) {
+            $user_data = unserialize($_COOKIE['save_login']);
+            $id = $user_data['member_id'];
+            $pw = $user_data['member_pw'];
+            $checked = true;
+        }
 ?>
 <div class="page_wrap">
     <?php if (isset($_SESSION['member_id'])) { ?>
@@ -82,8 +91,12 @@
                 </div>
                 <div class="login_main">
                     <form action="view_control/login_control" method="post">
-                        <input type="text" name="member_id" id="member_id" class="m_b_16" placeholder="아이디">
-                        <input type="password" name="member_pw" id="member_pw" class="m_b_16" placeholder="비밀번호">
+                        <input type="text" name="member_id" id="member_id" class="m_b_16" value="<?=$id ?: ''?>" placeholder="아이디">
+                        <input type="password" name="member_pw" id="member_pw" class="m_b_16" value="<?=$pw ?: ''?>" placeholder="비밀번호">
+                        <div class="save_login_wrap">
+                            <input type="checkbox" name="save_login" value="save_login" <?=$checked ? 'checked' : ''?> id="save_login" class="m_b_16">
+                            <label for="save_login">로그인 정보 기억하기</label>
+                        </div>
                         <button type="submit" class="login_submit">로그인</button>
                     </form>
                 </div>

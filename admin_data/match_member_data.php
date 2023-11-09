@@ -28,9 +28,9 @@
                 } elseif ($_POST['func'] == 'list_player') {
                     if($item['attendance']) {
                         if ($item['attendance'] == 'LATE') {
-                            $item['attendance'] = '지각';
+                            $item['attendance'] = '<span class="txt_yellow">지각</span>';
                         } else {
-                            $item['attendance'] = $item['attendance'] == 'ABSENT' ? '미출석' : '출석';
+                            $item['attendance'] = $item['attendance'] == 'ABSENT' ? '<span class="txt_red">미출석</span>' : '<span class="txt_green">출석</span>';
                         }
                     } else {
                         $item['attendance'] = '';
@@ -38,16 +38,16 @@
 
                     if($item['purchaseStatus']) {
                         if ($item['purchaseStatus'] == 'NOT_PURCHASED') {
-                            $item['purchaseStatus'] = '미납';
+                            $item['purchaseStatus'] = '<span class="txt_red">미납</span>';
                         } else {
-                            $item['purchaseStatus'] = $item['purchaseStatus'] == 'WAITING' ? '확인 대기중' : '납부 완료';
+                            $item['purchaseStatus'] = $item['purchaseStatus'] == 'WAITING' ? '<span class="txt_yellow">확인 대기중</span>' : '<span class="txt_green">납부 완료</span>';
                         }
                     } else {
                         $item['purchaseStatus'] = '';
                     }
                     echo "{$item['memberName']} / {$item['attendance']} / {$item['purchaseStatus']}<br/>";
                 } elseif ($_POST['func'] == 'expenses_player') {
-                    echo "<div class=\"expenses_ok_btn_wrap\"><a href=\"../admin_control/expenses_match_player?event_id={$event_id}\">{$item['memberName']}</a><a class=\"expenses_ok_btn\" href=\"../admin_control/expenses_match_player?memberId={$item['memberId']}&event_id={$event_id}\">확인</a><br/>";
+                    echo "<div class=\"expenses_ok_btn_wrap\"><a href=\"../admin_control/expenses_match_player?event_id={$event_id}\">{$item['memberName']}</a><a class=\"expenses_ok_btn\" href=\"../admin_control/expenses_match_player?memberId={$item['memberId']}&event_id={$event_id}\">확인</a><br/></div>";
                 } else {
                     echo "데이터를 불러오지 못했습니다.<br/>";
                 }
