@@ -46,7 +46,7 @@
         </head>
         <body>
             <div class="spinner-wrapper" id="spinner-wrapper">
-                <div class="spinner"></div>
+                <div class="spinner" id="spinner"></div>
             </div>
         </body>
         </html>
