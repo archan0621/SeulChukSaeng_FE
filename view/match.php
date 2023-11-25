@@ -251,7 +251,7 @@
                 }
             });
         } else {
-            const loading = document.getElementById("spinner-wrapper");
+            const loading = document.getElementById("spinner");
             loading.parentNode.removeChild(loading);
         }
     }
