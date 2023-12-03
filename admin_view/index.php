@@ -26,7 +26,7 @@
             <div class="admin_list">
                 <div class="list_title_wrap"><p class="list_title">사용할 메뉴를 선택해주세요</p></div>
                 <div class="txt_center admin_panel_wrap">
-                   <a href="javascript:;" onclick="no_function()" class="member_management">
+                   <a href="member" class="member_management">
                         <div class="icon"><i class="fa-solid fa-user"></i></div>
                         <div class="match_info_txt"><p>부원 관리</p></div>
                     </a>
