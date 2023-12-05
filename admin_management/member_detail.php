@@ -1,18 +1,5 @@
 <?php
     include '../tpl/body_tpl.php';
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['joined_game'])) {
-        // POST 요청의 필요한 데이터 확인
-        $cmd = $_POST['joined_game'];
-        $eventId = $_POST['eventId'];
-        $memberId = $_POST['memberId'];
-    
-        // 여기서 요청 처리
-        // 필요한 작업 수행
-    
-        // 응답 보내기 (예시로 'Success'를 응답으로 보냄)
-        echo 'Success';
-        return $cmd;
-    }
     function html_body() {
         global $_SESSION, $my_api;
         if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
@@ -57,19 +44,19 @@
                     <div class="match_rate_wrap">
                         <div class="match_total_rate">
                             <div class="match_rate">
-                                <p>전체 경기 수: <?=$get_member_detail['rate']['totalGame']?></p>
-                                <p>참여 경기 수: <?=$get_member_detail['rate']['joinedGame']?></p>
-                                <p>경기 전체 참여율: <?=$get_member_detail['rate']['totalGame'] / $get_member_detail['rate']['joinedGame'] * 100?>%</p>
+                                <p>전체 경기 수: <?=$get_member_detail['rate']['totalGame'] ?? '0'?></p>
+                                <p>참여 경기 수: <?=$get_member_detail['rate']['joinedGame'] ?? '0'?></p>
+                                <p>경기 전체 참여율: <?=$get_member_detail['rate']['joinedGame'] ? intval(($get_member_detail['rate']['joinedGame'] / $get_member_detail['rate']['totalGame']) * 100) : '0'?>%</p>
                             </div>
                             <p>경기 전체 참여율</p>
                         </div>
                         <div class="match_joined_rate">
                             <div class="match_rate">
                                 <p>참여 경기 수: <?=$get_member_detail['rate']['joinedGame']?></p>
-                                <p>출석(정상) 경기 수: <?=$get_member_detail['rate']['attendedGame']?></p>
+                                <p>출석(정상) 경기 수: <?=$get_member_detail['rate']['attendedGame'] ?? '0'?></p>
                                 <p>출석(지각) 경기 수: <?=$get_member_detail['rate']['lateGame'] ?? '0'?></p>
-                                <p>미출석 경기 수: <?=$get_member_detail['rate']['absentGame']?></p>
-                                <p>참여 경기 참여율: <?=intval(($get_member_detail['rate']['attendedGame'] + $get_member_detail['rate']['lateGame']) / $get_member_detail['rate']['joinedGame'] * 100)?>%</p>
+                                <p>미출석 경기 수: <?=$get_member_detail['rate']['absentGame'] ?? '0'?></p>
+                                <p>참여 경기 참여율: <?=$get_member_detail['rate']['attendedGame'] + $get_member_detail['rate']['lateGame'] ? intval(($get_member_detail['rate']['attendedGame'] + $get_member_detail['rate']['lateGame']) / $get_member_detail['rate']['joinedGame'] * 100) : '0'?>%</p>
                             </div>
                             <p>참여 경기 참여율</p>
                         </div>
@@ -81,7 +68,7 @@
                 <div class="joinend_game_list_wrap">
                     <div class="joinend_game_list">
                         <?php foreach ($get_member_detail['joinedGame'] as $item) { ?>
-                        <p><a href="javascript:;" onclick="no_function()"><?=$item['eventTitle']?></a></p>
+                        <p><a href="javascript:;" onclick="joined_game(<?=$item['eventId']?>, '<?=$item['eventTitle']?>', <?=$memberId?>)"><?=$item['eventTitle']?></a></p>
                         <?php } ?>
                     </div>
                 </div>
@@ -89,9 +76,35 @@
         </div>
     </div>
 </div>
+<div id="joined_game_lity" class="lity-hide popup_wrap joined_game_lity">
+    <div class="popup">
+        <div class="popup_header">
+            <div class="popup_header_left">
+                <p>참여 경기 상세 조회</p>
+            </div>
+            <div class="popup_header_right">
+                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
+            </div>
+        </div>
+        <div class="popup_content player_list joinend_game_wrap" id="joinend_game_wrap">
+            <div class="joinend_game" id="joinend_game"></div>
+            <div class="attend_process_btn" id="attend_process_btn"></div>
+        </div>
+    </div>
+</div>
 <script>
-    function no_function() {
-        alert('공사 중입니다!');
+    function joined_game(eventId, eventTitle, memberId) {
+        $.ajax({
+            url: '../admin_data/joinend_game_detail.php', 
+            method: 'POST',
+            data: { cmd: 'joinedGame', eventId: eventId, eventTitle: eventTitle, memberId: memberId },
+            success: function(response) {
+                lity('#joined_game_lity');
+                $('.joined_game_lity').parent().parent().addClass('joined_game_lity_wrap');
+                document.querySelector('#joinend_game').innerHTML = response;
+                document.querySelector('#attend_process_btn').innerHTML = '<a href="../admin_control/attend_process?eventId='+eventId+'&memberId='+memberId+'"><i class="fa-solid fa-circle-check"></i>직권 출석 처리</a>';
+            }
+        });
     }
 </script>
 <?php
