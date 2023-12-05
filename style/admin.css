@@ -29,28 +29,27 @@
     padding: 10px;
     overflow-y: auto;
 }
-/* 부원 목록 */
-.member_list {
+/* 부원 관리 */
+.member_management_wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 0 20px;
+    margin-bottom: 12px;
 }
-.member_list input {
+.member_management_wrap > a {
+    color: #000;
+    padding: 10px;
+    margin: 0 4px;
     border-radius: 8px;
-    padding: 6px;
-    border: none;
-    box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(0, 0, 0, 0.23);
+    background: #BDE7FF;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-.member_list input:focus {
-    outline: none;
-}
-.member_list_table {
-    width: 100%;
-    font-size: 14px;
-}
-.member_list_table, th, td {
-    border: 1px solid #000;
-    border-collapse: collapse;
+.user_log {
+    height: 300px;
+    border: 1px solid #9c9c9c;
+    border-radius: 8px;
+    padding: 10px;
+    overflow-y: auto;
 }
 /* 경기 목록 */
 .match_list_title {
@@ -172,4 +171,106 @@
 }
 .expenses_ok_btn_wrap:not(:first-child) {
     margin-top: 12px;
+}
+/* 부원 개별 관리 */
+.admin_management_wrap {
+    display: flex;
+}
+.admin_management_wrap > .list_title {
+    width: 50%;
+}
+.admin_management_wrap > div {
+    position: relative;
+    width: 50%;
+}
+.admin_management_wrap > div .search_member {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #9c9c9c;
+    width: calc(100% - 12px);
+}
+.admin_management_wrap > div > i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #9c9c9c;
+}
+.management_member_list {
+    height: 500px;
+    border: 1px solid #9c9c9c;
+    border-radius: 8px;
+    padding: 10px;
+    overflow-y: auto;
+}
+.management_member_list a {
+    color: #000;
+    display: block;
+    margin: 4px 0;
+}
+.management_member_list > .line {
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid #000;
+    margin: 6px 0;
+}
+/* 부원 개별 관리 상세 페이지 */
+.member_tier_wrap {
+    display: flex;
+    justify-content: space-between;
+}
+.member_tier_wrap .member_detail {
+    padding: 12px 6px;
+    border: 1px solid #9c9c9c;
+    border-radius: 6px;
+    font-weight: 700;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.match_rate_wrap {
+    margin: 24px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.match_rate_wrap > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.match_rate_wrap > div > p {
+    margin-top: 16px;
+}
+.match_rate_wrap .match_rate {
+    background: #D9D9D9;
+    max-width: 175px;
+    max-height: 175px;
+    width: 25vw;
+    height: 25vw;
+    border-radius: 50%;
+    margin: 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.joinend_game_list_wrap {
+    height: 300px;
+    border: 1px solid #9c9c9c;
+    border-radius: 8px;
+    padding: 10px;
+    overflow-y: auto;
+}
+.joinend_game_list_wrap a {
+    color: #000;
+}
+.joinend_game_detail {
+    border: none;
+    padding: 0;
+}
+@media (max-width: 370px) {
+    .admin_management_wrap > div > i {
+       display: none;
+    }
 }
