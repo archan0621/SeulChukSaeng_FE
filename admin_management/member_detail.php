@@ -43,20 +43,14 @@
                     </div>
                     <div class="match_rate_wrap">
                         <div class="match_total_rate">
-                            <div class="match_rate">
-                                <p>전체 경기 수: <?=$get_member_detail['rate']['totalGame'] ?? '0'?></p>
-                                <p>참여 경기 수: <?=$get_member_detail['rate']['joinedGame'] ?? '0'?></p>
-                                <p>경기 전체 참여율: <?=$get_member_detail['rate']['joinedGame'] ? intval(($get_member_detail['rate']['joinedGame'] / $get_member_detail['rate']['totalGame']) * 100) : '0'?>%</p>
+                            <div class="match_rate" id="match_rate">
+                                <div class="chart" id="all_chart"></div>
                             </div>
                             <p>경기 전체 참여율</p>
                         </div>
                         <div class="match_joined_rate">
                             <div class="match_rate">
-                                <p>참여 경기 수: <?=$get_member_detail['rate']['joinedGame']?></p>
-                                <p>출석(정상) 경기 수: <?=$get_member_detail['rate']['attendedGame'] ?? '0'?></p>
-                                <p>출석(지각) 경기 수: <?=$get_member_detail['rate']['lateGame'] ?? '0'?></p>
-                                <p>미출석 경기 수: <?=$get_member_detail['rate']['absentGame'] ?? '0'?></p>
-                                <p>참여 경기 참여율: <?=$get_member_detail['rate']['attendedGame'] + $get_member_detail['rate']['lateGame'] ? intval(($get_member_detail['rate']['attendedGame'] + $get_member_detail['rate']['lateGame']) / $get_member_detail['rate']['joinedGame'] * 100) : '0'?>%</p>
+                                <div class="chart" id="joined_chart"></div>
                             </div>
                             <p>참여 경기 참여율</p>
                         </div>
@@ -106,6 +100,133 @@
             }
         });
     }
+    $(function () {
+        const colors_all_chart = ['#BDE7FF', '#FFBDBD', '#CCCCCC'];
+        const colors_joined_chart = ['#BEFFBD', '#F9FC87', '#FFBDBD', '#CCCCCC'];
+
+        Highcharts.chart('all_chart', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                width: 200,
+                height: 200
+            },
+            title: {
+                text: '',
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    colors: colors_all_chart,
+                    borderRadius: 5,
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                        distance: -50,
+                    }
+                }
+            },
+
+            series: [{
+                name: '참여 경기 수',
+                data: [
+                    {
+                        <?php if ($get_member_detail['rate']['joinedGame']) { ?>
+                        name: '경기 참여율',
+                        y: <?=$get_member_detail['rate']['joinedGame']?>,
+                        color: colors_all_chart[0]
+                        <?php } else { ?>
+                        name: '경기 미참석',
+                        y: 100,
+                        color: colors_all_chart[2]
+                        <?php } ?>
+                    }
+            ]
+            }]
+        });
+        
+        Highcharts.chart('joined_chart', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                width: 200,
+                height: 200
+            },
+            title: {
+                text: '',
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    colors: colors_joined_chart,
+                    borderRadius: 5,
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                        <?=$get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['absentGame'] ? 'distance: -50,' : 'distance: -25,'?>
+                        style: {
+                            <?=$get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['absentGame'] ? 'fontSize: "11px"' : 'fontSize: "9px"'?>
+                        },
+                        filter: {
+                            property: 'percentage',
+                            operator: '>',
+                            value: 3
+                        }
+                    },
+                }
+            },
+            series: [{
+                name: '참여 경기 참여율',
+                data: [
+                    <?php if ($get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['absentGame']) { ?>
+                    { 
+                        name: '경기 미참석', 
+                        y: 100,
+                        color: colors_joined_chart[3]
+                    }
+                    <?php } else { ?>
+                    {
+                        name: '출석(정상) 경기 수', 
+                        y: <?=$get_member_detail['rate']['attendedGame'] ?? 0?>,
+                        color: colors_joined_chart[0],
+                    },
+                    { 
+                        name: '출석(지각) 경기 수', 
+                        y: <?=$get_member_detail['rate']['lateGame'] ?? 0?>,
+                        color: colors_joined_chart[1]
+                    },
+                    { 
+                        name: '미출석 경기 수', 
+                        y: <?=$get_member_detail['rate']['absentGame'] ?? 0?>,
+                        color: colors_joined_chart[2]
+                    }
+                    <?php } ?>
+                ]
+            }]
+        });
+    });
 </script>
 <?php
     }
