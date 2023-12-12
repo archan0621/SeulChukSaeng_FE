@@ -101,7 +101,7 @@
         });
     }
     $(function () {
-        const colors_all_chart = ['#BDE7FF', '#FFBDBD', '#CCCCCC'];
+        const colors_all_chart = ['#BDE7FF', '#BEFFBD', '#FFBDBD', '#CCCCCC'];
         const colors_joined_chart = ['#BEFFBD', '#F9FC87', '#FFBDBD', '#CCCCCC'];
 
         Highcharts.chart('all_chart', {
@@ -117,7 +117,7 @@
                 text: '',
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
             },
             accessibility: {
                 point: {
@@ -132,7 +132,7 @@
                     borderRadius: 5,
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                        format: '<b>{point.name}</b><br>{point.percentage:.0f} %',
                         distance: -50,
                     }
                 }
@@ -141,17 +141,30 @@
             series: [{
                 name: '참여 경기 수',
                 data: [
-                    {
-                        <?php if ($get_member_detail['rate']['joinedGame']) { ?>
-                        name: '경기 참여율',
-                        y: <?=$get_member_detail['rate']['joinedGame']?>,
-                        color: colors_all_chart[0]
-                        <?php } else { ?>
-                        name: '경기 미참석',
-                        y: 100,
-                        color: colors_all_chart[2]
+                        <?php if ($get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['totalGame']) { ?>
+                        {
+                            name: '경기 참여율',
+                            y: 100,
+                            color: colors_all_chart[1]
+                        }
+                        <?php } elseif (($get_member_detail['rate']['joinedGame'] < $get_member_detail['rate']['totalGame']) && ($get_member_detail['rate']['joinedGame'] > 0)) { ?>
+                        {
+                            name: '전체 경기',
+                            y: <?=100 - $get_member_detail['rate']['joinedGame'] / $get_member_detail['rate']['totalGame'] * 100?>,
+                            color: colors_all_chart[0]
+                        },
+                        {
+                            name: '경기 참여율',
+                            y: <?=$get_member_detail['rate']['joinedGame'] / $get_member_detail['rate']['totalGame'] * 100?>,
+                            color: colors_all_chart[1]
+                        }
+                        <?php } else { ?>                
+                        {
+                            name: '경기 미참석',
+                            y: 100,
+                            color: colors_all_chart[3]
+                        }
                         <?php } ?>
-                    }
             ]
             }]
         });
@@ -169,7 +182,7 @@
                 text: '',
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
             },
             accessibility: {
                 point: {
@@ -184,7 +197,7 @@
                     borderRadius: 5,
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                        format: '<b>{point.name}</b><br>{point.percentage:.0f} %',
                         <?=$get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['absentGame'] ? 'distance: -50,' : 'distance: -25,'?>
                         style: {
                             <?=$get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['absentGame'] ? 'fontSize: "11px"' : 'fontSize: "9px"'?>
