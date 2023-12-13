@@ -141,7 +141,7 @@
             series: [{
                 name: '참여 경기 수',
                 data: [
-                        <?php if ($get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['totalGame']) { ?>
+                        <?php if (($get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['totalGame']) && $get_member_detail['rate']['joinedGame'] > 0) { ?>
                         {
                             name: '경기 참여율',
                             y: 100,
