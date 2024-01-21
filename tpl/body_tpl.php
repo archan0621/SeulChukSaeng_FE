@@ -25,6 +25,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.js"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=oekl5d5mdq&submodules=geocoder"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+    (function(j,ennifer) {
+        j['dmndata']=[];j['jenniferFront']=function(args){window.dmndata.push(args)};
+        j['dmnaid']=ennifer;j['dmnatime']=new Date();j['dmnanocookie']=false;j['dmnajennifer']='JENNIFER_FRONT@INTG';
+    }(window, '6b231e62'));
+    </script>
+    <script async src="https://d-collect.jennifersoft.com/6b231e62/demian.js"></script>
 </head>
 <body>
     <?=html_body();?>

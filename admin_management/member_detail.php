@@ -12,57 +12,68 @@
 ?>
 <div class="page_wrap">
     <div class="bg_white page">
-        <div class="header_wrap">
-            <div class="header">
+        <div class="header_wrap admin_header_wrap">
+            <div class="header admin_header">
                 <div>
-                    <a href="/" class="font_en">SeulChukSaeng</a>
-                </div>
-                <div class="user_info">
+                    <a href="index" class="m_r_16 admin_index_return"><i class="fa-solid fa-chevron-left"></i></a>
                     <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
                     <p><a href="../admin_view/index">관리자 메뉴</a></p>
                     <?php  } ?>
-                    <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
-                    <p><a href="../view_control/signout">로그아웃</a></p>
+                </div>
+                <div class="user_info">
+                    <p><a href="#" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                    <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
                 </div>
             </div>
         </div>
         <div class="index_main">
             <div class="admin_list">
-                <div class="list_title_wrap">
-                    <p class="list_title"><i class="fa-solid fa-user"></i>부원 개별 관리 상세 페이지</p>
+                <div>
+                    <p class="member_detail_title">부원 개별 관리 상세 페이지</p>
                 </div>
                 <div class="member_detail_wrap">
                     <div class="member_tier_wrap">
-                        <div><img src="../img/tier.png" alt="멤버 티어"></div>
                         <div class="member_detail">
-                            <p>이름: <?=$get_member_detail['memberInfo']['name']?></p>
-                            <p>전화번호: <?=$get_member_detail['memberInfo']['phone']?></p>
-                            <p>성별: <?=$get_member_detail['memberInfo']['gender'] == 'MALE' ? '남자' : '여자'?></p>
-                            <p>경고 횟수: <?=$get_member_detail['memberInfo']['warnPoint']?></p>
+                            <div>
+                                <p class="name"><?=$get_member_detail['memberInfo']['name']?> <?=$get_member_detail['memberInfo']['gender'] == 'MALE' ? '(남)' : '(여)'?></p>
+                                <p class="phone">TEL <?=$get_member_detail['memberInfo']['phone']?></p>
+                            </div>
+                            <div class="warn_point_wrap">
+                                <div class="warn_point warn_point_1"><p><?=$get_member_detail['memberInfo']['warnPoint']?></p><p class="warn_point_title">경고</p></div>
+                                <div class="line"></div>
+                                <div class="warn_point warn_point_2"><p>0</p><p class="warn_point_title">주의</p></div>
+                            </div>
                         </div>
                     </div>
+                    <a href="javascript:;" onclick="rule()" class="rule">>>> 슬축생 패널티 규칙</a>
                     <div class="match_rate_wrap">
-                        <div class="match_total_rate">
-                            <div class="match_rate" id="match_rate">
-                                <div class="chart" id="all_chart"></div>
+                        <div class="match_rate_title"><?=$get_member_detail['memberInfo']['name']?> 부원 <?=$get_member_detail['rate']['totalGame']?>회 중 <?=$get_member_detail['rate']['joinedGame']?>회 참여</div>
+                        <div class="match_rate_main">
+                            <div class="match_total_rate">
+                                <div class="match_rate" id="match_rate">
+                                    <div class="chart" id="all_chart"></div>
+                                </div>
+                                <p>경기 전체 참여율</p>
                             </div>
-                            <p>경기 전체 참여율</p>
-                        </div>
-                        <div class="match_joined_rate">
-                            <div class="match_rate">
-                                <div class="chart" id="joined_chart"></div>
+                            <div class="match_joined_rate">
+                                <div class="match_rate">
+                                    <div class="chart" id="joined_chart"></div>
+                                </div>
+                                <p>참여 경기 참여율</p>
                             </div>
-                            <p>참여 경기 참여율</p>
                         </div>
                     </div>
                 </div>
-                <div class="list_title_wrap">
-                    <p class="list_title">참여 경기 목록</p>
+                <div class="match_game_title">
+                    <p>참여 경기 목록</p>
                 </div>
                 <div class="joinend_game_list_wrap">
                     <div class="joinend_game_list">
                         <?php foreach ($get_member_detail['joinedGame'] as $item) { ?>
-                        <p><a href="javascript:;" onclick="joined_game(<?=$item['eventId']?>, '<?=$item['eventTitle']?>', <?=$memberId?>)"><?=$item['eventTitle']?></a></p>
+                        <p>
+                            <a href="javascript:;" onclick="joined_game(<?=$item['eventId']?>, '<?=$item['eventTitle']?>', <?=$memberId?>)"><?=$item['eventTitle']?></a>
+                            <a href="javascript:;" onclick="joined_game(<?=$item['eventId']?>, '<?=$item['eventTitle']?>', <?=$memberId?>)"><i class="fa-solid fa-chevron-right"></i></a>
+                        </p>
                         <?php } ?>
                     </div>
                 </div>
@@ -70,23 +81,50 @@
         </div>
     </div>
 </div>
-<div id="joined_game_lity" class="lity-hide popup_wrap joined_game_lity">
-    <div class="popup">
-        <div class="popup_header">
-            <div class="popup_header_left">
-                <p>참여 경기 상세 조회</p>
-            </div>
-            <div class="popup_header_right">
-                <button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>닫기 <i class="fa-solid fa-x"></i></button>
+<div id="joined_game_lity" class="lity-hide joined_game_lity">
+    <div>
+        <div>
+            <div class="joined_game_title">
+                <p class="txt_center">참여 경기 상세 조회</p>
             </div>
         </div>
-        <div class="popup_content player_list joinend_game_wrap" id="joinend_game_wrap">
+        <div class="joinend_game_wrap" id="joinend_game_wrap">
             <div class="joinend_game" id="joinend_game"></div>
-            <div class="attend_process_btn" id="attend_process_btn"></div>
+            <div class="btn_wrap">
+                <div class="attend_process_btn" id="attend_process_btn"></div>
+                <div class="close_btn">
+                    <a href="javascript:;" data-lity-close>닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="rule_lity" class="lity-hide rule_lity">
+    <div>
+        <div>
+            <div class="rule_title">
+                <p><i class="fa-regular fa-futbol"></i> 슬축생 패널티 규칙 <i class="fa-regular fa-futbol"></i></p>
+                <p><a href="javascript:;" data-lity-close>X</a></p>
+            </div>
+        </div>
+        <div class="rule_main_wrap" id="rule_main_wrap">
+            <div class="rule_noti">
+                <p>💦 주의 : 3회당 경고 1회</p>
+                <p>💦 경고 2회 : 동아리 퇴출(회비환급X)</p>
+            </div>
+            <div class="rule_main">
+                <p>1. 투표 미참여 <span class="warn_1">주의 1회</span></p>
+                <p>2. 20분 이상 경기 지각 시 <span class="warn_1">주의 1회</span></p>
+                <p>3. 명단 확정 후 불참 통보/노쇼 시 <span class="warn_1">주의 1회</span></p>
+                <p>4. 경기 3번 연속 미참여 <span class="warn_2">경고 1회</span></p>
+            </div>
         </div>
     </div>
 </div>
 <script>
+    function rule() {
+        lity('#rule_lity');
+    }
     function joined_game(eventId, eventTitle, memberId) {
         $.ajax({
             url: '../admin_data/joinend_game_detail.php', 
@@ -96,7 +134,7 @@
                 lity('#joined_game_lity');
                 $('.joined_game_lity').parent().parent().addClass('joined_game_lity_wrap');
                 document.querySelector('#joinend_game').innerHTML = response;
-                document.querySelector('#attend_process_btn').innerHTML = '<a href="../admin_control/attend_process?eventId='+eventId+'&memberId='+memberId+'"><i class="fa-solid fa-circle-check"></i>직권 출석 처리</a>';
+                document.querySelector('#attend_process_btn').innerHTML = '<a href="../admin_control/attend_process?eventId='+eventId+'&memberId='+memberId+'">직권 출석 처리</a>';
             }
         });
     }
@@ -158,7 +196,7 @@
                             y: <?=$get_member_detail['rate']['joinedGame'] / $get_member_detail['rate']['totalGame'] * 100?>,
                             color: colors_all_chart[1]
                         }
-                        <?php } else { ?>                
+                        <?php } else { ?>
                         {
                             name: '경기 미참석',
                             y: 100,
