@@ -253,7 +253,7 @@
                 data: [
                     <?php if ($get_member_detail['rate']['joinedGame'] == $get_member_detail['rate']['absentGame']) { ?>
                     { 
-                        name: '경기 미참석', 
+                        name: '경기 미출석', 
                         y: 100,
                         color: colors_joined_chart[3]
                     }
