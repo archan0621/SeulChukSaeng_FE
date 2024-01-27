@@ -125,17 +125,17 @@
 ?>
 <div class="page_wrap">
     <div class="page">
-        <div class="header_wrap">
-            <div class="header">
+        <div class="header_wrap admin_header_wrap">
+            <div class="header admin_header">
                 <div>
-                    <a href="/" class="font_en">SeulChukSaeng</a>
+                    <a href="/"><img src="/img/admin_logo.png" class="admin_logo"></a>
+                    <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
+                    <p><a href="../admin_view/index" class="txt_underline">관리자 메뉴</a></p>
+                    <?php  } ?>
                 </div>
                 <div class="user_info">
-                    <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
-                    <p><a href="/admin_view/index">관리자 메뉴</a></p>
-                    <?php  } ?>
-                    <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
-                    <p><a href="../view_control/signout">로그아웃</a></p>
+                    <p><a href="#" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                    <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
                 </div>
             </div>
         </div>
@@ -291,6 +291,7 @@
             alert("위치정보를 지원하지 않는 브라우저입니다.");
         }
     }
+
     function purchasereq_check() {
         loading_page(true);
         $.ajax({
