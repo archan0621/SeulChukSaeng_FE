@@ -74,25 +74,33 @@
     padding: 24px 20px;
     margin: 0 auto;
 }
+.list_main_item {
+    font-size: 10px;
+}
+.list_main_item:not(:first-child)::before {
+    content: "· ";
+}
 .list_title_wrap {
     display: block;
     width: 100%;
     max-width: 460px;
     padding: 12px;
-    background: #bde7ff;
+    background: #FFFDFE;
+    border: 1.5px solid #F1F3FF; /* 변경된 부분 */
     border-radius: 8px;
     margin-bottom: 12px;
     box-shadow: 4px 4px 6px 0px #00000040;
     box-sizing: border-box;
 }
+
 .list_title {
     font-size: 18px;
     color: #000;
 }
 .list_main {
-    background: #c8fffb;
+    background: #FFFFFF;
     border-radius: 8px;
-    box-shadow: 4px 4px 6px 0px #00000040;
+    /* box-shadow: 4px 4px 6px 0px #00000040; */
 }
 .list {
     padding: 8px 16px;
