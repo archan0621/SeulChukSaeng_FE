@@ -13,11 +13,11 @@
                 <div>
                     <a href="/"><img src="/img/admin_logo.png" class="admin_logo"></a>
                     <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
-                    <p><a href="../admin_view/index" class="txt_underline">관리자 메뉴</a></p>
+                    <p><a href="../admin_view/" class="txt_underline">관리자 메뉴</a></p>
                     <?php  } ?>
                 </div>
                 <div class="user_info">
-                    <p><a href="#" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                    <p><a href="../view/my_info" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
                     <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
                 </div>
             </div>

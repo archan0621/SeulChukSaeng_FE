@@ -70,22 +70,37 @@ function html_body()
             }
 
         }
-    }
-    $id = '';
-    $pw = '';
-    $checked = false;
-    if (isset($_COOKIE['save_login'])) {
-        $user_data = unserialize($_COOKIE['save_login']);
-        $id = $user_data['member_id'];
-        $pw = $user_data['member_pw'];
-        $checked = true;
-    }
-    ?>
-    <div class="page_wrap">
-        <?php if (isset($_SESSION['member_id'])) { ?>
-            <div class="bg_white page">
-                <div class="header_wrap admin_header_wrap">
-                    <div class="header admin_header">
+        $id = '';
+        $pw = '';
+        $checked = false;
+        if(isset($_COOKIE['save_login'])) {
+            $user_data = unserialize($_COOKIE['save_login']);
+            $id = $user_data['member_id'];
+            $pw = $user_data['member_pw'];
+            $checked = true;
+        }
+?>
+<div class="page_wrap">
+    <?php if (isset($_SESSION['member_id'])) { ?>
+        <div class="bg_white page">
+            <div class="header_wrap admin_header_wrap">
+                <div class="header admin_header">
+                    <div>
+                        <a href="/"><img src="/img/admin_logo.png" class="admin_logo"></a>
+                        <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
+                        <p><a href="../admin_view/" class="txt_underline">관리자 메뉴</a></p>
+                        <?php  } ?>
+                    </div>
+                    <div class="user_info">
+                        <p><a href="../view/my_info" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                        <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="index_main">
+                <div class="list_wrap match_list">
+                    <div class="list_title_wrap"><p class="list_title">매치 목록</p></div>
+                    <div class="list_main">
                         <div>
                             <a href="/"><img src="/img/admin_logo.png" class="admin_logo"></a>
                             <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>

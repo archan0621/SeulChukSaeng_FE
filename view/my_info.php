@@ -2,12 +2,18 @@
     include '../tpl/body_tpl.php';
     function html_body() {
         global $_SESSION, $my_api;
-        if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
+        if (!isset($_SESSION['token'])) {
             header('Location: /');
         }
         require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
 
-        $memberId = $_GET['id'];
+        $get_member_list = JwtApiCall($my_api."member/memberList", "POST", array(''), $_SESSION['token']);
+        foreach ($get_member_list['memberList'] as $item) {
+            if ($item['name'] == $_SESSION['member_id']) {
+                $memberId = $item['id'];
+            }
+        }
+        
         $get_member_detail = JwtApiCall($my_api."member/memberDetail", "POST", array('memberId' => $memberId), $_SESSION['token']);
 ?>
 <div class="page_wrap">
@@ -29,7 +35,7 @@
         <div class="index_main">
             <div class="admin_list">
                 <div>
-                    <p class="member_detail_title">부원 개별 관리 상세 페이지</p>
+                    <p class="member_detail_title"><?=$_SESSION['member_id']?>님의 상세 페이지</p>
                 </div>
                 <div class="member_detail_wrap">
                     <div class="member_tier_wrap">
@@ -91,7 +97,6 @@
         <div class="joinend_game_wrap" id="joinend_game_wrap">
             <div class="joinend_game" id="joinend_game"></div>
             <div class="btn_wrap">
-                <div class="attend_process_btn" id="attend_process_btn"></div>
                 <div class="close_btn">
                     <a href="javascript:;" data-lity-close>닫기</a>
                 </div>
@@ -134,7 +139,6 @@
                 lity('#joined_game_lity');
                 $('.joined_game_lity').parent().parent().addClass('joined_game_lity_wrap');
                 document.querySelector('#joinend_game').innerHTML = response;
-                document.querySelector('#attend_process_btn').innerHTML = '<a href="../admin_control/attend_process?eventId='+eventId+'&memberId='+memberId+'">직권 출석 처리</a>';
             }
         });
     }
