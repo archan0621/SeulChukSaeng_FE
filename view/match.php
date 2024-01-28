@@ -134,7 +134,7 @@
                     <?php  } ?>
                 </div>
                 <div class="user_info">
-                    <p><a href="#" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                    <p><a href="../view/my_info" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
                     <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
                 </div>
             </div>

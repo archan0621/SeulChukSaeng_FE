@@ -11,13 +11,13 @@
         <div class="header_wrap admin_header_wrap">
             <div class="header admin_header">
                 <div>
-                    <a href="index" class="m_r_16 admin_index_return"><i class="fa-solid fa-chevron-left"></i></a>
+                    <a href="../admin_view/" class="m_r_16 admin_index_return"><i class="fa-solid fa-chevron-left"></i></a>
                     <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
-                    <p><a href="../admin_view/index">관리자 메뉴</a></p>
+                    <p><a href="../admin_view/">관리자 메뉴</a></p>
                     <?php  } ?>
                 </div>
                 <div class="user_info">
-                    <p><a href="#" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                    <p><a href="../view/my_info" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
                     <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
                 </div>
             </div>
