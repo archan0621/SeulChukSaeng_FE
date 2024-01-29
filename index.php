@@ -1,12 +1,11 @@
 <?php
-include 'tpl/body_tpl.php';
-function html_body()
-{
-    global $_SESSION, $my_api;
-    if (isset($_SESSION['token'])) {
-        require $_SERVER['DOCUMENT_ROOT'] . '/model/JwtApiCall.php';
-        $get_event_list = JwtApiCall($my_api . "event/list", "POST", array(''), $_SESSION['token']);
-        class event_dto
+    include 'tpl/body_tpl.php';
+    function html_body() {
+        global $_SESSION, $my_api;
+        if (isset($_SESSION['token'])) {
+            require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+            $get_event_list = JwtApiCall($my_api."event/list", "POST", array(''), $_SESSION['token']);
+            class event_dto
         {
             private $event_id;
             private $event_title;
@@ -70,6 +69,7 @@ function html_body()
             }
 
         }
+    }
         $id = '';
         $pw = '';
         $checked = false;
@@ -102,36 +102,15 @@ function html_body()
                     <div class="list_title_wrap"><p class="list_title">매치 목록</p></div>
                     <div class="list_main">
                         <div>
-                            <a href="/"><img src="/img/admin_logo.png" class="admin_logo"></a>
-                            <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
-                                <p><a href="../admin_view/index" class="txt_underline">관리자 메뉴</a></p>
-                            <?php } ?>
-                        </div>
-                        <div class="user_info">
-                            <p><a href="#" class="txt_700">
-                                    <?= $_SESSION['member_id'] ?>님
-                                </a></p>
-                            <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="index_main">
-                    <div class="list_wrap match_list">
-                        <div class="list_title_wrap">
-                            <p class="list_title">매치 목록</p>
-                        </div>
-                        <div class="list_main">
-                            <div>
-                                <?php for ($i = 0; $i < $get_event_list['showcaseCount']; $i++) {
-                                    $event_dto = new event_dto($get_event_list['eventShowcase'][$i]['eventId'], $get_event_list['eventShowcase'][$i]['eventTitle'], $get_event_list['eventShowcase'][$i]['gender'], $get_event_list['eventShowcase'][$i]['location'], $get_event_list['eventShowcase'][$i]['money'], $get_event_list['eventShowcase'][$i]['startTime']);
-                                    $event_dto_id = $event_dto->get_event_id();
-                                    $event_dto_event = $event_dto->get_event_title(); 
-                                    $event_dto_gender = $event_dto->get_event_gender();
-                                    $event_dto_location = $event_dto->get_event_location();
-                                    $event_dto_money = $event_dto->get_event_money();
-                                    $event_dto_startTime = $event_dto->get_event_start_time();
-                                    ?>
-                                    <a href="/view/match?event_id=<?= $event_dto_id ?>" class="list match_list_item">
+                            <?php for ($i = 0; $i < $get_event_list['showcaseCount']; $i++) { 
+                            $event_dto = new event_dto($get_event_list['eventShowcase'][$i]['eventId'], $get_event_list['eventShowcase'][$i]['eventTitle'], $get_event_list['eventShowcase'][$i]['gender'], $get_event_list['eventShowcase'][$i]['location'], $get_event_list['eventShowcase'][$i]['money'], $get_event_list['eventShowcase'][$i]['startTime']);
+                            $event_dto_id = $event_dto->get_event_id();
+                            $event_dto_event = $event_dto->get_event_title(); 
+                            $event_dto_gender = $event_dto->get_event_gender();
+                            $event_dto_location = $event_dto->get_event_location();
+                            $event_dto_money = $event_dto->get_event_money();
+                            $event_dto_startTime = $event_dto->get_event_start_time();?>
+                            <a href="/view/match?event_id=<?= $event_dto_id ?>" class="list match_list_item">
                                         <div class="match_list_item_title">
                                             <?= $event_dto_event ?>
                                         </div>
@@ -142,46 +121,43 @@ function html_body()
                                             <span class="list_main_item"><?= $event_dto_startTime ?></span>
                                         </div>
                                     </a>
-                                <?php } ?>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php } else { ?>
-            <div class="bg_white page">
-                <div class="txt_center login_wrap">
-                    <div class="login_header">
-                        <img src="img/logo.png" alt="슬축생 로고" class="logo_img">
-                        <h2 class="font_en">SeulChukSaeng</h2>
-                        <p class="header_noti">환영합니다!!<br>슬기로운 축구생활 멤버 페이지 입니다</p>
-                    </div>
-                    <div class="login_main">
-                        <form action="view_control/login_control" method="post">
-                            <input type="text" name="member_id" id="member_id" class="m_b_16" value="<?= $id ?: '' ?>"
-                                placeholder="아이디">
-                            <input type="password" name="member_pw" id="member_pw" class="m_b_16" value="<?= $pw ?: '' ?>"
-                                placeholder="비밀번호">
-                            <div class="save_login_wrap">
-                                <input type="checkbox" name="save_login" value="save_login" <?= $checked ? 'checked' : '' ?>
-                                    id="save_login" class="m_b_16">
-                                <label for="save_login">로그인 정보 기억하기</label>
-                            </div>
-                            <button type="submit" class="login_submit">로그인</button>
-                        </form>
-                    </div>
-                    <div class="go_signup_wrap">
-                        <a href="/view/signup" class="go_signup">아니 아직 계정이 없다구요? 이걸 누르세요</a>
-                    </div>
+        </div>
+    <?php } else { ?>
+        <div class="bg_white page">
+            <div class="txt_center login_wrap">
+                <div class="login_header">
+                    <img src="img/logo.png" alt="슬축생 로고" class="logo_img">
+                    <h2 class="font_en">SeulChukSaeng</h2>
+                    <p class="header_noti">환영합니다!!<br>슬기로운 축구생활 멤버 페이지 입니다</p>
+                </div>
+                <div class="login_main">
+                    <form action="view_control/login_control" method="post">
+                        <input type="text" name="member_id" id="member_id" class="m_b_16" value="<?=$id ?: ''?>" placeholder="아이디">
+                        <input type="password" name="member_pw" id="member_pw" class="m_b_16" value="<?=$pw ?: ''?>" placeholder="비밀번호">
+                        <div class="save_login_wrap">
+                            <input type="checkbox" name="save_login" value="save_login" <?=$checked ? 'checked' : ''?> id="save_login" class="m_b_16">
+                            <label for="save_login">로그인 정보 기억하기</label>
+                        </div>
+                        <button type="submit" class="login_submit">로그인</button>
+                    </form>
+                </div>
+                <div class="go_signup_wrap">
+                    <a href="/view/signup" class="go_signup">아니 아직 계정이 없다구요? 이걸 누르세요</a>
                 </div>
             </div>
-        <?php } ?>
-    </div>
-    <script>
-        function no_function() {
-            alert('공사 중입니다!');
-        }
-    </script>
-    <?php
-}
+        </div>
+    <?php } ?>
+</div>
+<script>
+    function no_function() {
+        alert('공사 중입니다!');
+    }
+</script>
+<?php
+    }
 ?>
