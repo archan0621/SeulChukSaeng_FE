@@ -1,24 +1,27 @@
 <?php
     include '../tpl/body_tpl.php';
     function html_body() {
-        global $_SESSION;
+        global $_SESSION, $is_maintenance;
+        if ($is_maintenance) {
+            header('Location: /maintenance');
+        }
         if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
             header('Location: /');
         }
 ?>
 <div class="page_wrap">
     <div class="bg_white page">
-        <div class="header_wrap">
-            <div class="header">
+        <div class="header_wrap admin_header_wrap">
+            <div class="header admin_header">
                 <div>
-                    <a href="/" class="font_en">SeulChukSaeng</a>
+                    <a href="/"><img src="/img/admin_logo.png" class="admin_logo"></a>
+                    <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
+                    <p><a href="../admin_view/" class="txt_underline">관리자 메뉴</a></p>
+                    <?php  } ?>
                 </div>
                 <div class="user_info">
-                    <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'ADMIN') { ?>
-                    <p><a href="../admin_view/index">관리자 메뉴</a></p>
-                    <?php  } ?>
-                    <p><a href="#"><?=$_SESSION['member_id']?>님</a></p>
-                    <p><a href="../view_control/signout">로그아웃</a></p>
+                    <p><a href="../view/my_info" class="txt_700"><?=$_SESSION['member_id']?>님</a></p>
+                    <p><a href="../view_control/signout" class="admin_logout">로그아웃</a></p>
                 </div>
             </div>
         </div>
