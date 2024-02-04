@@ -1,7 +1,10 @@
 <?php
     include '../tpl/body_tpl.php';
     function html_body() {
-        global $_SESSION;
+        global $_SESSION, $is_maintenance;
+        if ($is_maintenance) {
+            header('Location: /maintenance');
+        }
         if (!isset($_SESSION['member_id'])) {
             header("location: ../view_control/signout");
         }

@@ -1,7 +1,10 @@
 <?php
     include '../tpl/body_tpl.php';
     function html_body() {
-        global $_SESSION, $my_api;
+        global $_SESSION, $my_api, $is_maintenance;
+        if ($is_maintenance) {
+            header('Location: /maintenance');
+        }
         if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
             header('Location: /');
         }
@@ -95,7 +98,7 @@
                         $event_dto_location = $event_dto->get_event_location();
                         $event_dto_money = $event_dto->get_event_money();
                         $event_dto_startTime = $event_dto->get_event_start_time();?>
-                        <a href="/view/match?event_id=<?= $event_dto_id ?>" class="list match_list_item">
+                        <a href="match_detail?event_id=<?= $event_dto_id ?>" class="list match_list_item">
                             <div class="match_list_item_title">
                                 <?= $event_dto_event ?>
                             </div>

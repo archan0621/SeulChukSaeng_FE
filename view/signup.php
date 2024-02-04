@@ -1,6 +1,10 @@
 <?php
     include '../tpl/body_tpl.php';
     function html_body() {
+        global $is_maintenance;
+        if ($is_maintenance) {
+            header('Location: /maintenance');
+        }
 ?>
 <div class="page_wrap">
     <div class="page">

@@ -1,7 +1,10 @@
 <?php
     include 'tpl/body_tpl.php';
     function html_body() {
-        global $_SESSION, $my_api;
+        global $_SESSION, $my_api, $is_maintenance;
+        if ($is_maintenance) {
+            header('Location: /maintenance');
+        }
         if (isset($_SESSION['token'])) {
             require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
             $get_event_list = JwtApiCall($my_api."event/list", "POST", array(''), $_SESSION['token']);
