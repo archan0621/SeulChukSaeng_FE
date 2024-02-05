@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 
 ARG APIURL
+ENV URL ${APIURL}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -21,7 +22,12 @@ RUN sed -i 's/^\(session\.auto_start\s*=\s*\)0/\11/' /etc/php/7.4/apache2/php.in
 # Modify Apache configuration to allow .htaccess overrides
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/' /etc/apache2/apache2.conf
 
-RUN sed -i 's/$my_api = "";/\$my_api = "%APIURL%";/' /var/www/html/config/config.php
+RUN sed -i 's/$my_api = "";/\$my_api = "$URL";/' /var/www/html/config/config.php
+
+RUN echo "URL TEST %APIURL%"
+RUN echo "URL TEST $APIURL"
+RUN echo "URL TEST ${APIURL}"
+RUN echo "URL TEST $URL"
 
 ENTRYPOINT ["apachectl", "-D", "FOREGROUND"]
 EXPOSE 80/tcp
