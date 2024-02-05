@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ARG APIURL
-ENV URL ${APIURL}
+ENV URL $APIURL
 
 ENV DEBIAN_FRONTEND=noninteractive
 
