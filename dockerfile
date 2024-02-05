@@ -21,5 +21,8 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 # Modify config.php to set $real_mode to true
 RUN sed -i 's/$real_mode = false;/$real_mode = true;/' /var/www/html/config/config.php
 
+# Set $my_api value to "https://seulchuksaeng.store/"
+RUN sed -i 's/$my_api = "";/\$my_api = "https:\/\/seulchuksaeng.store\/";/' /var/www/html/config/config.php
+
 ENTRYPOINT ["apachectl", "-D", "FOREGROUND"]
 EXPOSE 80/tcp
