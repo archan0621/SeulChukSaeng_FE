@@ -44,6 +44,46 @@ a {
 .header a {
     color: #fff;
 }
+.header p,.header a {
+    font-size: 16px;
+    color: #fff;
+}
+.header_noti {
+    font-weight: 700;
+}
+.admin_header_wrap {
+    background: #E8F6EF;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+    border-bottom: none;
+}
+.admin_header > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.admin_header > div:first-child a {
+    font-weight: 700;
+    color: #7c7c7c;
+}
+.admin_header a {
+    color: #212A3E;
+}
+.admin_header .admin_logo {
+    width: 35px;
+    height: 35px;
+    margin-right: 16px;
+}
+.admin_header .admin_logout {
+    padding: 6px 12px;
+    border-radius: 50px;
+    background: #212A3E;
+    color: #fff;
+    margin-left: 10px;
+}
+.admin_index_return {
+    color: #212A3E !important;
+    font-weight: 700;
+}
 .logo_img {
     width: 13%;
     height: auto;
@@ -54,21 +94,26 @@ a {
 .user_info a {
     margin-left: 8px;
 }
-.header p,.header a {
-    font-size: 16px;
-    color: #fff;
-}
-.header_noti {
-    font-weight: 700;
+.txt_underline {
+    text-decoration: underline;
 }
 .txt_center {
     text-align: center;
+}
+.txt_700 {
+    font-weight: 700;
 }
 .m_b_16 {
     margin-bottom: 16px;
 }
 .m_t_16 {
     margin-top: 16px;
+}
+.m_r_16 {
+    margin-right: 16px;
+}
+.m_l_16 {
+    margin-left: 16px;
 }
 .icon i {
     font-size: 30px;
