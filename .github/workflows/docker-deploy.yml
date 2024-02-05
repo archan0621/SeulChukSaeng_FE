@@ -36,3 +36,4 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_REPO }}/seulchuksaeng-fe
             docker-compose up -d
             docker image prune -f
+            
