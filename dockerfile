@@ -22,7 +22,7 @@ RUN sed -i 's/^\(session\.auto_start\s*=\s*\)0/\11/' /etc/php/7.4/apache2/php.in
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/' /etc/apache2/apache2.conf
 
 # Set $my_api value to "https://seulchuksaeng.store/"
-RUN sed -i 's/$my_api = "";/\$my_api = "${PROPERTIES}";/' /var/www/html/config/config.php
+RUN sed -i 's/$my_api = "";/\$my_api = "${APIURL}";/' /var/www/html/config/config.php
 
 ENTRYPOINT ["apachectl", "-D", "FOREGROUND"]
 EXPOSE 80/tcp
