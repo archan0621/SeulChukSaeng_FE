@@ -1,5 +1,5 @@
 <?php
-    $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require '../config/config.php';
+    $_SERVER['REQUEST_URI'] == "/" ? require 'config/config.php' : require 'config/config.php';
     global $_SESSION;
 ?>
 <!DOCTYPE html>
