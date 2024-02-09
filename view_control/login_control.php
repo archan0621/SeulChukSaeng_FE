@@ -27,6 +27,7 @@
         $_SESSION['token'] = $responseData['token'];
         $_SESSION['member_id'] = $get_user_name['message'];
         $_SESSION['userRole'] = $get_user_name['userRole'];
+        $_SESSION['userId'] = $get_user_name['memberId'];
         if (isset($_POST['save_login']) && $_POST['save_login']){
           $cookie_name = "save_login";
           $user_data = array(

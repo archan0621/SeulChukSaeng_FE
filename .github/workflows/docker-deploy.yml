@@ -1,0 +1,51 @@
+name: Seulchuksaeng_FE_Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+    ## 웹 이미지 빌드 및 도커허브에 push
+      - name: web docker build and push
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t ${{ secrets.DOCKER_REPO }}/seulchuksaeng-fe --build-arg APIURL=${{ secrets.API_URL }} .
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_REPO }}/seulchuksaeng-fe --build-arg APIURL=${{ secrets.API_URL }} -f Dockerfile .
+          docker push ${{ secrets.DOCKER_REPO }}/seulchuksaeng-fe
+
+      ## docker compose up
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: root
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            sudo docker rm -f $(docker ps -qa)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/seulchuksaeng-fe
+            docker-compose up -d
+            docker image prune -f
+            
+      - name: action-slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: Seulchuksaeng FrontEnd - REAL
+          fields: repo,commit,message,author
+          mention: here
+          if_mention: failure,cancelled
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
+            
