@@ -9,15 +9,8 @@
             header('Location: /');
         }
         require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
-
-        $get_member_list = JwtApiCall($my_api."member/memberList", "POST", array(''), $_SESSION['token']);
-        foreach ($get_member_list['memberList'] as $item) {
-            if ($item['name'] == $_SESSION['member_id']) {
-                $memberId = $item['id'];
-            }
-        }
         
-        $get_member_detail = JwtApiCall($my_api."member/memberDetail", "POST", array('memberId' => $memberId), $_SESSION['token']);
+        $get_member_detail = JwtApiCall($my_api."member/memberDetail", "POST", array('memberId' => $_SESSION['userId']), $_SESSION['token']);
 ?>
 <div class="page_wrap">
     <div class="bg_white page">
