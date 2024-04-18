@@ -12,6 +12,9 @@
 
         $memberId = $_GET['id'];
         $get_member_detail = JwtApiCall($my_api."member/memberDetail", "POST", array('memberId' => $memberId), $_SESSION['token']);
+        $warnPoint = $get_member_detail['memberInfo']['warnPoint'];
+        $warnings = intdiv($warnPoint, 3); // warnPoint를 3으로 나눈 몫을 구함 (경고 횟수)
+        $cautions = $warnPoint % 3; // warnPoint를 3으로 나눈 나머지를 구함 (주의 횟수)
 ?>
 <div class="page_wrap">
     <div class="bg_white page">
@@ -42,9 +45,9 @@
                                 <p class="phone">TEL <?=$get_member_detail['memberInfo']['phone']?></p>
                             </div>
                             <div class="warn_point_wrap">
-                                <div class="warn_point warn_point_1"><p><?=$get_member_detail['memberInfo']['warnPoint']?></p><p class="warn_point_title">경고</p></div>
+                                <div class="warn_point warn_point_1"><p><?=$warnings?></p><p class="warn_point_title">경고</p></div>
                                 <div class="line"></div>
-                                <div class="warn_point warn_point_2"><p>0</p><p class="warn_point_title">주의</p></div>
+                                <div class="warn_point warn_point_2"><p><?=$cautions?></p><p class="warn_point_title">주의</p></div>
                             </div>
                         </div>
                     </div>
@@ -118,7 +121,7 @@
             <div class="rule_main">
                 <p>1. 투표 미참여 <span class="warn_1">주의 1회</span></p>
                 <p>2. 20분 이상 경기 지각 시 <span class="warn_1">주의 1회</span></p>
-                <p>3. 명단 확정 후 불참 통보/노쇼 시 <span class="warn_1">주의 1회</span></p>
+                <p>3. 명단 확정 후 불참 통보/노쇼 시 <span class="warn_1">경고 1회</span></p>
                 <p>4. 경기 3번 연속 미참여 <span class="warn_2">경고 1회</span></p>
             </div>
         </div>
