@@ -1,47 +1,44 @@
 <?php
-    include '../tpl/body_tpl.php';
-    function html_body() {
-        global $_SESSION, $my_api, $is_maintenance;
-        if ($is_maintenance) {
-            header('Location: /maintenance');
-        }
-        if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
-            header('Location: /');
-        }
-        
-        require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
-        $get_member_list = JwtApiCall($my_api."member/memberList", "POST", array(''), $_SESSION['token']);
-
-        $gender = '';
-        if (isset($_GET['gender'])) {
-            if ($_GET['gender'] == 'male') {
-                $gender = 'male';
-            } else if ($_GET['gender'] == 'female') {
-                $gender = 'female';
-            } else {
-                $gender = '';
-            }
-        }
-
-        $male_list = [];
-        $female_list = [];
-        foreach ($get_member_list['memberList'] as $item) {
-            if ($item['gender'] == 'MALE') {
-                array_push($male_list, $item);
-            } else {
-                array_push($female_list, $item);
-            }
-        }
-
-        function comparePlayers($player1, $player2) {
-            $sortA = $player1['name'];
-            $sortB = $player2['name'];
-
-            return strcmp($sortA, $sortB);
-        }
+include '../tpl/body_tpl.php';
+function html_body() {
+    global $_SESSION, $my_api;
+    if (!isset($_SESSION['token']) || $_SESSION['userRole'] != 'ADMIN') {
+        header('Location: /');
+    }
     
-        usort($male_list, 'comparePlayers');
-        usort($female_list, 'comparePlayers');
+    require $_SERVER['DOCUMENT_ROOT'].'/model/JwtApiCall.php';
+    $get_member_list = JwtApiCall($my_api."member/memberList", "POST", array(''), $_SESSION['token']);
+
+    $gender = '';
+    if (isset($_GET['gender'])) {
+        if ($_GET['gender'] == 'male') {
+            $gender = 'male';
+        } else if ($_GET['gender'] == 'female') {
+            $gender = 'female';
+        } else {
+            $gender = '';
+        }
+    }
+
+    $male_list = [];
+    $female_list = [];
+    foreach ($get_member_list['memberList'] as $item) {
+        if ($item['gender'] == 'MALE') {
+            array_push($male_list, $item);
+        } else {
+            array_push($female_list, $item);
+        }
+    }
+
+    function comparePlayers($player1, $player2) {
+        $sortA = $player1['name'];
+        $sortB = $player2['name'];
+
+        return strcmp($sortA, $sortB);
+    }
+
+    usort($male_list, 'comparePlayers');
+    usort($female_list, 'comparePlayers');
 ?>
 <div class="page_wrap">
     <div class="bg_white page">
@@ -59,7 +56,7 @@
                 </div>
             </div>
             <div class="search_member_wrap">
-                <input type="text" name="search_member" id="search_member" class="search_member" placeholder="이름을 입력해주세요">
+                <input type="text" name="search_member" onkeyup="filter()" id="search_member" class="search_member" placeholder="이름을 입력해주세요">
                 <p class="icon"><i class='fa-solid fa-magnifying-glass'></i></p>
             </div>
         </div>
@@ -82,7 +79,7 @@
                             <div class="member_list">
                                 <?php if ($gender == '' || $gender == 'male') { ?>
                                     <?php foreach ($male_list as $item) { ?>
-                                    <div><p><?=$item['name']?></p><p>남자</p><p><?=$item['warnPoint']?>회</p><p><a href="member_detail?id=<?=$item['id']?>">자세히</a></p></div>
+                                    <div class="listInner"><p class="searchName"><?=$item['name']?></p><p>남자</p><p><?=$item['warnPoint']?>회</p><p><a href="member_detail?id=<?=$item['id']?>">자세히</a></p></div>
                                     <?php } ?>
                                 <?php } ?>
                                 <?php if ($gender == '') { ?>
@@ -90,7 +87,7 @@
                                 <?php } ?>
                                 <?php if ($gender == '' || $gender == 'female') { ?>
                                     <?php foreach ($female_list as $item) { ?>
-                                    <div><p><?=$item['name']?></p><p>여자</p><p><?=$item['warnPoint']?>회</p><p><a href="member_detail?id=<?=$item['id']?>">자세히</a></p></div>
+                                    <div class="listInner"><p class="searchName"><?=$item['name']?></p><p>여자</p><p><?=$item['warnPoint']?>회</p><p><a href="member_detail?id=<?=$item['id']?>">자세히</a></p></div>
                                     <?php } ?>
                                 <?php } ?>
                             </div>
@@ -105,6 +102,21 @@
     function no_function() {
         alert('공사 중입니다!');
     }
+
+    function filter() {
+        console.log("yeh");
+        let search = document.getElementById("search_member").value.toLocaleLowerCase();
+        let listInner = document.getElementsByClassName("listInner");
+
+        for (let i = 0; i < listInner.length; i++) {
+          let name = listInner[i].getElementsByClassName("searchName")[0];
+          if (name && name.innerHTML.toLocaleLowerCase().indexOf(search) !== -1) {
+            listInner[i].style.display = "flex"
+          } else {
+            listInner[i].style.display = "none"
+          }
+        }
+      }
 </script>
 <?php
     }
