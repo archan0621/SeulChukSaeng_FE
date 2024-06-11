@@ -31,7 +31,7 @@
                     <p class="list_title"><i class="fa-regular fa-futbol"></i> 경기 생성</p>
                 </div>
                 <div class="match_create_wrap">
-                    <form action="../admin_control/match_create" method="post">
+                    <form action="../admin_control/match_create" method="post" id="form_match_crate">
                         <div><p>경기 제목</p><input type="text" name="match_title" id="match_title" class="match_title" placeholder="경기 제목을 입력해주세요"></div>
                         <div>
                             <p>경기 위치</p>
@@ -57,7 +57,7 @@
                         <div><p>종료 시간</p><input type="datetime-local" name="match_end_time" id="match_end_time" class="match_end_time" placeholder="종료 시간 선택해주세요"></div>
                         <div><p>개인 활동비</p><input type="text" name="match_money" id="match_money" class="match_money" placeholder="개인 활동비를 입력해주세요"></div>
                         <div><p>유의사항</p><input type="text" name="match_description" id="match_description" class="match_description" placeholder="경기 유의사항을 작성해주세요"></div>
-                        <div class="match_create_btn_wrap"><button type="submit" class="match_create_btn">경기 생성</button></div>
+                        <div class="match_create_btn_wrap"><button type="submit" class="match_create_btn" id="match_create_btn">경기 생성</button></div>
                     </form>
                 </div>
             </div>
@@ -85,6 +85,19 @@
             member_gender.classList.remove('select_on');
         }
     }
+
+    var form_match_crate = document.getElementById("form_match_crate");
+    var submit_btn = document.getElementById("match_create_btn");
+    var count = 0;
+    function btn_click(event) {
+        event.preventDefault();
+        count += 1;
+        if (count > 1) {
+            return;
+        }
+        form_match_crate.submit();
+    }
+    submit_btn.addEventListener("click", btn_click);
 </script>
 <?php
     }
