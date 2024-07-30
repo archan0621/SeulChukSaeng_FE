@@ -6,6 +6,17 @@
   "orientation": "any",
   "scope": "/",
   "short_name": "seulchuksaeng",
-  "start_url": "/",
-  "theme_color": "#ffffff"
+  "start_url": "https://seulchuksaeng.com/",
+  "theme_color": "#ffffff",
+  "id": "seulchuksaeng_pwa",
+  "lang": "ko",
+  "prefer_related_applications": true,
+  "icons": [
+    {
+        "src": "/img/logo.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any"
+    }
+  ]
 }
